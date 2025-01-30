@@ -1,0 +1,19 @@
+[versions]
+kotlin = "2.0.21"                  # Kotlin plugin version
+shadow = "9.0.0-beta6"             # Shadow plugin version
+paperweight = "1.7.7"              # Paperweight plugin version
+bukkit-factory = "1.2.0"
+run-paper = "2.3.1"
+
+paper = "1.18.2-R0.1-SNAPSHOT"     # Paper server software version
+
+[libraries]
+# Add shared libraries here if needed, e.g.:
+# guava = { module = "com.google.guava:guava", version = "31.1-jre" }
+
+[plugins]
+kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }                                            # Kotlin JVM plugin
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }                                                 # Shadow plugin
+paperweight = { id = "io.papermc.paperweight.userdev", version.ref = "paperweight" }                            # Paperweight plugin
+bukkit-factory = { id = "xyz.jpenilla.resource-factory-bukkit-convention", version.ref = "bukkit-factory" }     # resource-factory plugin
+run-paper = { id = "xyz.jpenilla.run-paper", version.ref = "run-paper" }                                        # run-task plugin
