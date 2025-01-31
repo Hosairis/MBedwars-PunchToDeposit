@@ -6,10 +6,10 @@ bukkit-factory = "1.2.0"
 run-paper = "2.3.1"
 
 paper = "1.18.2-R0.1-SNAPSHOT"     # Paper server software version
+mbedwars = "5.5"
 
 [libraries]
-# Add shared libraries here if needed, e.g.:
-# guava = { module = "com.google.guava:guava", version = "31.1-jre" }
+mbedwars = { module = "de.marcely.bedwars:API", version.ref = "mbedwars" }
 
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }                                            # Kotlin JVM plugin

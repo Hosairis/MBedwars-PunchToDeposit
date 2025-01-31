@@ -6,10 +6,13 @@ plugins {
 
 repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://repo.marcely.de/repository/maven-public/")
 }
 
 dependencies {
     paperweight.paperDevBundle(libs.versions.paper) // Paper development bundle
+
+    compileOnly(libs.mbedwars)
 }
 
 java {
@@ -17,12 +20,16 @@ java {
 }
 
 tasks {
-    runServer { minecraftVersion("1.18.2") } // Configure the Minecraft server version.
+    runServer {
+        minecraftVersion("1.18.2") // Configure the Minecraft server version.
+        downloadPlugins { modrinth("viaversion", "5.2.2-SNAPSHOT+672") }
+    }
 }
 
 bukkitPluginYaml {
-    name = "MCTemplate"
-    main = "example.plugin.template.Template"
-    authors.add("Author")
-    apiVersion = "1.18"
+    name = "PunchToDeposit"
+    main = "dev.dreamers.ptd.PunchToDeposit"
+    authors.add("Rafi")
+    apiVersion = "1.13"
+    softDepend.add("MBedwars")
 }
