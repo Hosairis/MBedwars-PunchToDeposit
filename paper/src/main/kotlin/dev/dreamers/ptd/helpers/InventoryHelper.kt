@@ -14,7 +14,7 @@ class InventoryHelper {
 
             if (!HookHelper.usesMBedwars) {
                 return when (blockState) {
-                    is Chest -> blockState.blockInventory
+                    is Chest -> blockState.inventory
                     is EnderChest -> player.enderChest
                     else -> null
                 }
@@ -23,7 +23,7 @@ class InventoryHelper {
             val arena =
                 BedwarsAPI.getGameAPI().getArenaByPlayer(player)
                     ?: return when (blockState) {
-                        is Chest -> blockState.blockInventory
+                        is Chest -> blockState.inventory
                         is EnderChest -> player.enderChest
                         else -> null
                     }
