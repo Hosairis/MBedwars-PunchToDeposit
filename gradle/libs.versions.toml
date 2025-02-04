@@ -6,9 +6,11 @@ bukkit-factory = "1.2.0"
 run-paper = "2.3.1"
 
 paper = "1.18.2-R0.1-SNAPSHOT"     # Paper server software version
+bstats = "3.0.2"
 mbedwars = "5.5"
 
 [libraries]
+bstats = { module = "org.bstats:bstats-bukkit", version.ref = "bstats" }
 mbedwars = { module = "de.marcely.bedwars:API", version.ref = "mbedwars" }
 
 [plugins]

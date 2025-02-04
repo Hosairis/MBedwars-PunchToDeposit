@@ -4,7 +4,7 @@ plugins {
 }
 
 allprojects {
-    group = "example.plugin"
+    group = "dev.dreamers"
     version = "1.0.0"
     description = "An example template for creating Minecraft plugins"
 
@@ -22,6 +22,12 @@ subprojects {
     tasks {
         build {
             dependsOn(shadowJar) // Include shadowJar in the build lifecycle
+        }
+
+        shadowJar {
+            relocate("kotlin", "dev.dreamers.kotlin")
+            relocate("org.jetbrains.annotations", "dev.dreamers.jetbrains.annotations")
+            relocate("org.intellij.lang.annotations", "dev.dreamers.intellij.lang.annotations")
         }
     }
 }

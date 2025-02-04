@@ -12,6 +12,7 @@ repositories {
 dependencies {
     paperweight.paperDevBundle(libs.versions.paper) // Paper development bundle
 
+    implementation(libs.bstats)
     compileOnly(libs.mbedwars)
 }
 
@@ -23,6 +24,10 @@ tasks {
     runServer {
         minecraftVersion("1.18.2") // Configure the Minecraft server version.
         downloadPlugins { modrinth("viaversion", "5.2.2-SNAPSHOT+672") }
+    }
+
+    shadowJar {
+        relocate("org.bstats", "dev.dreamers.ptd.libs.bstats")
     }
 }
 
