@@ -4,6 +4,8 @@ import dev.dreamers.ptd.helpers.HookHelper
 import dev.dreamers.ptd.listeners.InteractListener
 import dev.dreamers.ptd.helpers.UpdateHelper
 import dev.dreamers.ptd.listeners.JoinListener
+import dev.dreamers.ptd.services.ConfigService
+import dev.dreamers.ptd.services.MessageService
 import org.bstats.bukkit.Metrics
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
@@ -19,6 +21,8 @@ class PunchToDeposit : JavaPlugin() {
 
     override fun onEnable() {
         plugin = this
+        ConfigService.init()
+        MessageService.init()
 
         Metrics(this, 24460)
         HookHelper.init()
