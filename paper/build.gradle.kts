@@ -13,6 +13,8 @@ dependencies {
     paperweight.paperDevBundle(libs.versions.paper) // Paper development bundle
 
     implementation(libs.bstats)
+    implementation(libs.boosted.yaml)
+    implementation(libs.minimessage)
     compileOnly(libs.mbedwars)
 }
 
@@ -23,11 +25,15 @@ java {
 tasks {
     runServer {
         minecraftVersion("1.18.2") // Configure the Minecraft server version.
-        downloadPlugins { modrinth("viaversion", "5.2.2-SNAPSHOT+672") }
+        downloadPlugins {
+            modrinth("viaversion", "5.2.2-SNAPSHOT+672")
+            modrinth("viabackwards", "5.2.2-SNAPSHOT+386")
+        }
     }
 
     shadowJar {
         relocate("org.bstats", "dev.dreamers.ptd.libs.bstats")
+        relocate("dev.dejvokep.boostedyaml", "dev.dreamers.ptd.libs.boostedyaml")
     }
 }
 
