@@ -46,46 +46,50 @@ class InventoryHelper {
             return transferred
         }
 
-
         fun getInventory(player: Player, clickedBlock: Block): Inventory? {
             val blockType = clickedBlock.type
             val blockState = clickedBlock.state
 
             val isLegacy = VersionHelper.isOlderThan(VersionHelper.Version.V1_13)
 
-            // Common inventory retrieval logic for non-Bedwars cases
-            fun getDefaultInventory(): Inventory? = when {
-                blockType == Material.ENDER_CHEST -> player.enderChest
-                isLegacy -> when (blockType) {
-                    Material.CHEST, Material.TRAPPED_CHEST -> (blockState as? Chest)?.blockInventory
-                    Material.FURNACE -> (blockState as? Furnace)?.inventory
-                    Material.DISPENSER -> (blockState as? Dispenser)?.inventory
-                    Material.HOPPER -> (blockState as? Hopper)?.inventory
-                    Material.DROPPER -> (blockState as? Dropper)?.inventory
-                    else -> null
+            fun getDefaultInventory(): Inventory? =
+                when {
+                    blockType == Material.ENDER_CHEST -> player.enderChest
+                    isLegacy ->
+                        when (blockType) {
+                            Material.CHEST,
+                            Material.TRAPPED_CHEST -> (blockState as? Chest)?.blockInventory
+                            Material.FURNACE -> (blockState as? Furnace)?.inventory
+                            Material.DISPENSER -> (blockState as? Dispenser)?.inventory
+                            Material.HOPPER -> (blockState as? Hopper)?.inventory
+                            Material.DROPPER -> (blockState as? Dropper)?.inventory
+                            else -> null
+                        }
+                    else ->
+                        when (blockState) {
+                            is EnderChest -> player.enderChest
+                            is Container -> blockState.inventory
+                            else -> null
+                        }
                 }
-                else -> when (blockState) {
-                    is EnderChest -> player.enderChest
-                    is Container -> blockState.inventory
-                    else -> null
-                }
-            }
 
             if (!HookHelper.usesMBedwars) return getDefaultInventory()
 
-            // Fetch arena only once
-            val arena = BedwarsAPI.getGameAPI().getArenaByPlayer(player) ?: return getDefaultInventory()
+            val arena =
+                BedwarsAPI.getGameAPI().getArenaByPlayer(player) ?: return getDefaultInventory()
 
             return when {
                 blockType == Material.ENDER_CHEST -> arena.getPlayerPrivateInventory(player)
-                isLegacy -> when (blockType) {
-                    Material.CHEST, Material.TRAPPED_CHEST -> arena.getTeamPrivateInventory(arena.getPlayerTeam(player))
-                    else -> null
-                }
+                isLegacy ->
+                    when (blockType) {
+                        Material.CHEST,
+                        Material.TRAPPED_CHEST ->
+                            arena.getTeamPrivateInventory(arena.getPlayerTeam(player))
+                        else -> null
+                    }
                 blockState is Chest -> arena.getTeamPrivateInventory(arena.getPlayerTeam(player))
                 else -> null
             }
         }
-
     }
 }

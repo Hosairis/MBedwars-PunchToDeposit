@@ -14,17 +14,19 @@ abstract class StorageHelper(private val fileName: String) {
     private lateinit var configuration: YamlDocument
 
     fun init() {
-        val inputStream = {}.javaClass.getResourceAsStream("/$fileName")
-            ?: throw RuntimeException("$fileName is missing from the jar!")
+        val inputStream =
+            {}.javaClass.getResourceAsStream("/$fileName")
+                ?: throw RuntimeException("$fileName is missing from the jar!")
 
-        configuration = YamlDocument.create(
-            File(PunchToDeposit.getInst().dataFolder, fileName),
-            inputStream,
-            GeneralSettings.DEFAULT,
-            DumperSettings.DEFAULT,
-            LoaderSettings.builder().setAutoUpdate(true).build(),
-            UpdaterSettings.builder().setVersioning(BasicVersioning("config-version")).build()
-        )
+        configuration =
+            YamlDocument.create(
+                File(PunchToDeposit.getInst().dataFolder, fileName),
+                inputStream,
+                GeneralSettings.DEFAULT,
+                DumperSettings.DEFAULT,
+                LoaderSettings.builder().setAutoUpdate(true).build(),
+                UpdaterSettings.builder().setVersioning(BasicVersioning("config-version")).build(),
+            )
 
         loadValues()
     }

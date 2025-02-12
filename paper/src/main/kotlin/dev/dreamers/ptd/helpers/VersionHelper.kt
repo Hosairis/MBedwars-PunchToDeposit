@@ -6,17 +6,13 @@ class VersionHelper private constructor() {
     companion object {
         private val serverVersion: Version by lazy { detectVersion() }
 
-        @JvmStatic
-        fun getCurrentVersion(): Version = serverVersion
+        @JvmStatic fun getCurrentVersion(): Version = serverVersion
 
-        @JvmStatic
-        fun isNewerThan(version: Version): Boolean = serverVersion.id > version.id
+        @JvmStatic fun isNewerThan(version: Version): Boolean = serverVersion.id > version.id
 
-        @JvmStatic
-        fun isOlderThan(version: Version): Boolean = serverVersion.id < version.id
+        @JvmStatic fun isOlderThan(version: Version): Boolean = serverVersion.id < version.id
 
-        @JvmStatic
-        fun isVersion(version: Version): Boolean = serverVersion.id == version.id
+        @JvmStatic fun isVersion(version: Version): Boolean = serverVersion.id == version.id
 
         private fun detectVersion(): Version {
             val bukkitVersion = Bukkit.getBukkitVersion()

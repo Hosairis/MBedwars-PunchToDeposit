@@ -2,8 +2,8 @@ package dev.dreamers.ptd
 
 import dev.dreamers.ptd.helpers.HookHelper
 import dev.dreamers.ptd.helpers.MessageHelper
-import dev.dreamers.ptd.listeners.InteractListener
 import dev.dreamers.ptd.helpers.UpdateHelper
+import dev.dreamers.ptd.listeners.InteractListener
 import dev.dreamers.ptd.listeners.JoinListener
 import dev.dreamers.ptd.services.ConfigService
 import dev.dreamers.ptd.services.LogService
@@ -49,7 +49,6 @@ class PunchToDeposit : JavaPlugin() {
             e.printStackTrace()
             Bukkit.getPluginManager().disablePlugin(this)
         }
-
     }
 
     override fun onDisable() {}

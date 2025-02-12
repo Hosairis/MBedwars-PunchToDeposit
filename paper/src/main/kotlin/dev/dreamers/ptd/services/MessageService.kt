@@ -10,6 +10,7 @@ class MessageService private constructor() : StorageHelper("messages.yml") {
 
         fun init() = instance.init()
         fun reload(): Boolean = instance.reload()
+
         private fun setPlaceHolders(input: String): String = instance.setPlaceHolders(input)
 
         var PREFIX: String = MessageHelper.colorize("<dark_gray>[<aqua>PTD<dark_gray>] <reset>")

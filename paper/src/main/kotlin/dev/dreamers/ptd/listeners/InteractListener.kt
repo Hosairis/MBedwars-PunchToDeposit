@@ -15,12 +15,9 @@ class InteractListener : Listener {
         val player = event.player
         val block = event.clickedBlock ?: return
 
-        if (
-            event.action != Action.LEFT_CLICK_BLOCK ||
+        if (event.action != Action.LEFT_CLICK_BLOCK ||
             !player.hasPermission("ptd.events.interact") ||
-            player.inventory.itemInHand.type == Material.AIR
-        )
-            return
+            player.inventory.itemInHand.type == Material.AIR) return
 
         val blockInventory = InventoryHelper.getInventory(player, block) ?: return
         val item = player.inventory.itemInHand
@@ -58,7 +55,6 @@ class InteractListener : Listener {
             player,
             MessageService.TRANSFER_SUCCESS.replace("%amount", "$totalTransfer")
                 .replace("%item", MessageHelper.formatString(itemType.name))
-                .replace("%container", MessageHelper.formatString(block.type.name)),
-        )
+                .replace("%container", MessageHelper.formatString(block.type.name)))
     }
 }
