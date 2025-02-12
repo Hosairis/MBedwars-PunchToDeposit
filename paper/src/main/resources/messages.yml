@@ -1,7 +1,7 @@
-Prefix: "<dark_gray>[<aqua>PTD<dark_gray>]<reset>"
+Prefix: "&7[&bPTD&7]&r"
 
-Transfer-Success: "%prefix <green>✔ <gray>Deposited <white>x%amount %item <gray>into %container"
-Update-Found: "%prefix <red>⚠ <click:OPEN_URL:https://github.com/Dreamers-Dev/PunchToDeposit/releases><gray>A new update is available. Please <green>Update <gray>to the latest version.</click>"
+Transfer-Success: "%prefix &a✔ &7Deposited &fx%amount %item &7into &f%container"
+Update-Found: "%prefix &c⚠ &7New update is available. Please &aUpdate &7to the latest version."
 
 # DO NOT TOUCH!
 config-version: 1

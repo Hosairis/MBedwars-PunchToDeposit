@@ -1,15 +1,19 @@
 package dev.dreamers.ptd.helpers
 
-import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.minimessage.MiniMessage
+import dev.dreamers.ptd.services.ConfigService
+import dev.dreamers.ptd.services.ConsoleColors
+import dev.dreamers.ptd.services.LogService
+import net.md_5.bungee.api.ChatColor
 import org.bukkit.entity.Player
 
 class MessageHelper {
     companion object {
-        val miniMessage = MiniMessage.miniMessage()
+        fun colorize(input: String): String {
+            return ChatColor.translateAlternateColorCodes('&', input)
+        }
 
-        fun sendMessage(player: Player, message: Component) {
-            player.sendMessage(message)
+        fun sendMessage(player: Player, message: String) {
+            player.sendMessage(colorize(message))
         }
 
         fun formatString(name: String): String {
@@ -24,32 +28,15 @@ class MessageHelper {
             return result.toString()
         }
 
-        fun colorize(input: String): Component {
-            return miniMessage.deserialize(
-                input
-                    .replace("&0", "<black>")
-                    .replace("&1", "<dark_blue>")
-                    .replace("&2", "<dark_green>")
-                    .replace("&3", "<dark_aqua>")
-                    .replace("&4", "<dark_red>")
-                    .replace("&5", "<dark_purple>")
-                    .replace("&6", "<gold>")
-                    .replace("&7", "<gray>")
-                    .replace("&8", "<dark_gray>")
-                    .replace("&9", "<blue>")
-                    .replace("&a", "<green>")
-                    .replace("&b", "<aqua>")
-                    .replace("&c", "<red>")
-                    .replace("&d", "<light_purple>")
-                    .replace("&e", "<yellow>")
-                    .replace("&f", "<white>")
-                    .replace("&k", "<obfuscated>")
-                    .replace("&l", "<bold>")
-                    .replace("&m", "<strikethrough>")
-                    .replace("&n", "<underlined>")
-                    .replace("&o", "<italic>")
-                    .replace("&r", "<reset>")
-            )
+        fun printSplashScreen() {
+            if (!ConfigService.PRINT_SPLASHSCREEN) return
+
+            LogService.logColored("_______________________ ", ConsoleColors.BLUE_BRIGHT)
+            LogService.logColored("___  __ \\__  __/__  __ \\", ConsoleColors.BLUE_BRIGHT)
+            LogService.logColored("__  /_/ /_  /  __  / / /", ConsoleColors.BLUE_BRIGHT)
+            LogService.logColored("_  ____/_  /   _  /_/ / ", ConsoleColors.BLUE_BRIGHT)
+            LogService.logColored("/_/     /_/    /_____/  ", ConsoleColors.BLUE_BRIGHT)
+            LogService.logColored("                        ", ConsoleColors.BLUE_BRIGHT)
         }
     }
 }

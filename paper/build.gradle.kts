@@ -14,7 +14,6 @@ dependencies {
 
     implementation(libs.bstats)
     implementation(libs.boosted.yaml)
-    implementation(libs.minimessage)
     compileOnly(libs.mbedwars)
 }
 

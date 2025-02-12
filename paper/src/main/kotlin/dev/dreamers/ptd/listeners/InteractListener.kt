@@ -3,10 +3,7 @@ package dev.dreamers.ptd.listeners
 import dev.dreamers.ptd.helpers.InventoryHelper
 import dev.dreamers.ptd.helpers.MessageHelper
 import dev.dreamers.ptd.services.MessageService
-import net.kyori.adventure.text.TextReplacementConfig
 import org.bukkit.Material
-import org.bukkit.block.Container
-import org.bukkit.block.EnderChest
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
@@ -20,14 +17,13 @@ class InteractListener : Listener {
 
         if (
             event.action != Action.LEFT_CLICK_BLOCK ||
-                !player.hasPermission("ptd.events.interact") ||
-                player.inventory.itemInHand.type == Material.AIR ||
-                block.state !is EnderChest && block.state !is Container
+            !player.hasPermission("ptd.events.interact") ||
+            player.inventory.itemInHand.type == Material.AIR
         )
             return
 
         val blockInventory = InventoryHelper.getInventory(player, block) ?: return
-        val item = player.inventory.itemInMainHand
+        val item = player.inventory.itemInHand
         val itemType = item.type
         var totalTransfer = 0
 
@@ -39,10 +35,7 @@ class InteractListener : Listener {
                     totalTransfer += transferred
 
                     if (transferred == slot.amount) {
-                        player.inventory.setItem(
-                            index,
-                            null,
-                        )
+                        player.inventory.setItem(index, null)
                     } else {
                         slot.amount -= transferred
                     }
@@ -63,24 +56,9 @@ class InteractListener : Listener {
 
         MessageHelper.sendMessage(
             player,
-            MessageService.TRANSFER_SUCCESS.replaceText(
-                    TextReplacementConfig.builder()
-                        .matchLiteral("%amount")
-                        .replacement("$totalTransfer")
-                        .build()
-                )
-                .replaceText(
-                    TextReplacementConfig.builder()
-                        .matchLiteral("%item")
-                        .replacement(MessageHelper.formatString(itemType.name))
-                        .build()
-                )
-                .replaceText(
-                    TextReplacementConfig.builder()
-                        .matchLiteral("%container")
-                        .replacement(MessageHelper.formatString(block.type.name))
-                        .build()
-                ),
+            MessageService.TRANSFER_SUCCESS.replace("%amount", "$totalTransfer")
+                .replace("%item", MessageHelper.formatString(itemType.name))
+                .replace("%container", MessageHelper.formatString(block.type.name)),
         )
     }
 }

@@ -10,11 +10,13 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
         fun init() = instance.init()
         fun reload(): Boolean = instance.reload()
 
+        var PRINT_SPLASHSCREEN: Boolean = true
         var CONFIG_VERSION: Int = 1
     }
 
     override fun loadValues() {
         val config = getConfig()
-        CONFIG_VERSION = config.getInt("config-version", 1)
+        PRINT_SPLASHSCREEN = config.getBoolean("Print-SplashScreen")
+        CONFIG_VERSION = config.getInt("config-version")
     }
 }
