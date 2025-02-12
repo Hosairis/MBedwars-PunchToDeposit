@@ -1,7 +1,6 @@
 package dev.dreamers.ptd.helpers
 
 import dev.dreamers.ptd.services.ConfigService
-import dev.dreamers.ptd.services.ConsoleColors
 import dev.dreamers.ptd.services.LogService
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.entity.Player
@@ -31,12 +30,12 @@ class MessageHelper {
         fun printSplashScreen() {
             if (!ConfigService.PRINT_SPLASHSCREEN) return
 
-            LogService.logColored("_______________________ ", ConsoleColors.BLUE_BRIGHT)
-            LogService.logColored("___  __ \\__  __/__  __ \\", ConsoleColors.BLUE_BRIGHT)
-            LogService.logColored("__  /_/ /_  /  __  / / /", ConsoleColors.BLUE_BRIGHT)
-            LogService.logColored("_  ____/_  /   _  /_/ / ", ConsoleColors.BLUE_BRIGHT)
-            LogService.logColored("/_/     /_/    /_____/  ", ConsoleColors.BLUE_BRIGHT)
-            LogService.logColored("                        ", ConsoleColors.BLUE_BRIGHT)
+            LogService.info("\u001B[31m_______________________ ")
+            LogService.info("\u001B[31m___  __ \\__  __/__  __ \\")
+            LogService.info("\u001B[31m__  /_/ /_  /  __  / / /")
+            LogService.info("\u001B[31m_  ____/_  /   _  /_/ / ")
+            LogService.info("\u001B[31m/_/     /_/    /_____/  ")
+            LogService.info("\u001B[31m                        ")
         }
     }
 }

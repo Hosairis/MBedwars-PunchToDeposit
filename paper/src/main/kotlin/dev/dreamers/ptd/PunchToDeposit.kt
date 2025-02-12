@@ -6,7 +6,6 @@ import dev.dreamers.ptd.listeners.InteractListener
 import dev.dreamers.ptd.helpers.UpdateHelper
 import dev.dreamers.ptd.listeners.JoinListener
 import dev.dreamers.ptd.services.ConfigService
-import dev.dreamers.ptd.services.ConsoleColors
 import dev.dreamers.ptd.services.LogService
 import dev.dreamers.ptd.services.MessageService
 import org.bstats.bukkit.Metrics
@@ -30,22 +29,22 @@ class PunchToDeposit : JavaPlugin() {
             MessageService.init()
 
             MessageHelper.printSplashScreen()
-            LogService.logColored("Loaded Config", ConsoleColors.GREEN)
-            LogService.logColored("Loaded Messages", ConsoleColors.GREEN)
+            LogService.info("Loaded Config")
+            LogService.info("Loaded Messages")
 
             HookHelper.init()
-            if (HookHelper.usesMBedwars) LogService.logColored("Hooked into MBedwars", ConsoleColors.GREEN)
+            if (HookHelper.usesMBedwars) LogService.info("Hooked into MBedwars")
 
             Bukkit.getPluginManager().registerEvents(InteractListener(), this)
             Bukkit.getPluginManager().registerEvents(JoinListener(), this)
-            LogService.logColored("Registered Events", ConsoleColors.GREEN)
+            LogService.info("Registered Events")
 
             Metrics(this, 24460)
-            LogService.logColored("Initialized metrics", ConsoleColors.GREEN)
+            LogService.info("Initialized metrics")
 
             UpdateHelper.startUpdateCheck()
-            LogService.logColored("Started update check", ConsoleColors.GREEN)
-            LogService.logColored("                    ", ConsoleColors.GREEN)
+            LogService.info("Started update check")
+            LogService.info("                    ")
         } catch (e: Exception) {
             e.printStackTrace()
             Bukkit.getPluginManager().disablePlugin(this)
