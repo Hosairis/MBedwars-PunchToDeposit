@@ -2,6 +2,7 @@ package dev.dreamers.ptd.listeners
 
 import dev.dreamers.ptd.helpers.InventoryHelper
 import dev.dreamers.ptd.helpers.MessageHelper
+import dev.dreamers.ptd.services.ConfigService
 import dev.dreamers.ptd.services.MessageService
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
@@ -19,9 +20,18 @@ class InteractListener : Listener {
             !player.hasPermission("ptd.events.interact") ||
             player.inventory.itemInHand.type == Material.AIR) return
 
-        val blockInventory = InventoryHelper.getInventory(player, block) ?: return
         val item = player.inventory.itemInHand
         val itemType = item.type
+        if (ConfigService.BLACKLISTED_ITEMS.contains(itemType.name)) {
+            MessageHelper.sendMessage(player, MessageService.ITEM_BLACKLISTED)
+            return
+        }
+        if (ConfigService.BLACKLISTED_CONTAINERS.contains(block.type.name)) {
+            MessageHelper.sendMessage(player, MessageService.CONTAINER_BLACKLISTED)
+            return
+        }
+
+        val blockInventory = InventoryHelper.getInventory(player, block) ?: return
         var totalTransfer = 0
 
         if (player.isSneaking) {

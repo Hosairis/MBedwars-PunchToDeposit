@@ -3,5 +3,12 @@ Print-SplashScreen: true
 Update-Checker:
   enabled: true
 
+Settings:
+  BlackListed-Items:
+    - "WOODEN_SWORD"
+    - "IRON_SWORD"
+  BlackListed-Containers:
+    - "FURNACE"
+
 # DO NOT TOUCH!
 config-version: 1

@@ -1,6 +1,8 @@
 Prefix: "&7[&bPTD&7]&r"
 
 Transfer-Success: "%prefix &a✔ &7Deposited &fx%amount %item &7into &f%container"
+Item-BlackListed: "%prefix &c✖ &7That item is &cBlacklisted &7from being deposited"
+Container-BlackListed: "%prefix &c✖ &7That container is &cBlacklisted &7from accepting items as deposits"
 Update-Found: "%prefix &c⚠ &7New update is available. Please &aUpdate &7to the latest version."
 
 # DO NOT TOUCH!
