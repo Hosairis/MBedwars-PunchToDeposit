@@ -42,4 +42,11 @@ bukkitPluginYaml {
     authors.add("Rafi")
     apiVersion = "1.13"
     softDepend.add("MBedwars")
+    commands {
+        create("ptd") {
+            description = "Main command for PunchToDeposit"
+            usage = "/ptd <subcommand>"
+            aliases.addAll(listOf("punchtodeposit"))
+        }
+    }
 }

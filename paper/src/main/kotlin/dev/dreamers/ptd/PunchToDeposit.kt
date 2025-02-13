@@ -1,5 +1,6 @@
 package dev.dreamers.ptd
 
+import dev.dreamers.ptd.commands.PTDCommand
 import dev.dreamers.ptd.helpers.HookHelper
 import dev.dreamers.ptd.helpers.MessageHelper
 import dev.dreamers.ptd.helpers.UpdateHelper
@@ -37,6 +38,9 @@ class PunchToDeposit : JavaPlugin() {
             Bukkit.getPluginManager().registerEvents(InteractListener(), this)
             Bukkit.getPluginManager().registerEvents(JoinListener(), this)
             LogService.info("Registered Events")
+
+            getCommand("ptd")?.setExecutor(PTDCommand())
+            LogService.info("Registered Commands")
 
             Metrics(this, 24460)
             LogService.info("Initialized metrics")

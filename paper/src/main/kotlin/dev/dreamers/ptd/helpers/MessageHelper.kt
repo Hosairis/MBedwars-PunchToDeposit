@@ -3,6 +3,7 @@ package dev.dreamers.ptd.helpers
 import dev.dreamers.ptd.services.ConfigService
 import dev.dreamers.ptd.services.LogService
 import net.md_5.bungee.api.ChatColor
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 class MessageHelper {
@@ -12,6 +13,10 @@ class MessageHelper {
         }
 
         fun sendMessage(player: Player, message: String) {
+            player.sendMessage(colorize(message))
+        }
+
+        fun sendMessage(player: CommandSender, message: String) {
             player.sendMessage(colorize(message))
         }
 

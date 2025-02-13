@@ -13,8 +13,8 @@ import org.bukkit.scheduler.BukkitTask
 
 class UpdateHelper {
     companion object {
-        private const val PLUGIN_NAME = "PunchToDeposit"
-        private const val PLUGIN_VERSION = "1.0.0"
+        const val PLUGIN_NAME = "PunchToDeposit"
+        const val PLUGIN_VERSION = "1.0.0"
 
         @Volatile
         var isOutDated: Boolean = false

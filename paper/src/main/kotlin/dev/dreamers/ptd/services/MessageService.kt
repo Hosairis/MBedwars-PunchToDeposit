@@ -18,6 +18,8 @@ class MessageService private constructor() : StorageHelper("messages.yml") {
         var ITEM_BLACKLISTED: String = setPlaceHolders("%prefix &c✖ &7That item is &cBlacklisted &7from being deposited")
         var CONTAINER_BLACKLISTED: String = setPlaceHolders("%prefix &c✖ That container is &cBlacklisted &7from accepting items as deposits")
         var UPDATE_FOUND: String = setPlaceHolders("%prefix <red>⚠ <click:OPEN_URL:https://github.com/Dreamers-Dev/PunchToDeposit/releases><gray>A new update is available. Please <green>Update <gray>to the latest version.</click>")
+        var RELOAD_SUCCESS: String = setPlaceHolders("%prefix &a✔ &7Config & Message files reloaded &aSuccessfully")
+        var RELOAD_FAILED: String = setPlaceHolders("%prefix &c✖ &7Config & Message files reload &cFailed")
 
         var CONFIG_VERSION: Int = 1
     }
@@ -34,6 +36,8 @@ class MessageService private constructor() : StorageHelper("messages.yml") {
         UPDATE_FOUND = setPlaceHolders(config.getString("Update-Found"))
         ITEM_BLACKLISTED = setPlaceHolders(config.getString("Item-BlackListed"))
         CONTAINER_BLACKLISTED = setPlaceHolders(config.getString("Container-BlackListed"))
+        RELOAD_SUCCESS = setPlaceHolders(config.getString("Reload-Success"))
+        RELOAD_FAILED = setPlaceHolders(config.getString("Reload-Failed"))
 
         CONFIG_VERSION = config.getInt("config-version")
     }
