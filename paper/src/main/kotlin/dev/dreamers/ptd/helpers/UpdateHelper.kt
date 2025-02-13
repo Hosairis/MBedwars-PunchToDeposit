@@ -2,6 +2,7 @@ package dev.dreamers.ptd.helpers
 
 import com.google.gson.Gson
 import dev.dreamers.ptd.PunchToDeposit
+import dev.dreamers.ptd.services.ConfigService
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
@@ -33,6 +34,7 @@ class UpdateHelper {
 
         private fun checkForUpdates() {
             task?.cancel()
+            if (!ConfigService.UPDATE_CHECKER_ENABLED) return
 
             task =
                 Bukkit.getScheduler()
@@ -59,7 +61,7 @@ class UpdateHelper {
                                     isOutDated = jsonData.data.version != PLUGIN_VERSION
                                 }
                         },
-                        0, /*36000*/
+                        36000,
                         100,
                     )
         }

@@ -1,4 +1,7 @@
 Print-SplashScreen: true
 
+Update-Checker:
+  enabled: true
+
 # DO NOT TOUCH!
 config-version: 1
