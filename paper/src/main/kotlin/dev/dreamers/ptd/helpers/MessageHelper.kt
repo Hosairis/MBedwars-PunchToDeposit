@@ -30,12 +30,12 @@ class MessageHelper {
         fun printSplashScreen() {
             if (!ConfigService.PRINT_SPLASHSCREEN) return
 
-            LogService.info("\u001B[31m_______________________ ")
-            LogService.info("\u001B[31m___  __ \\__  __/__  __ \\")
-            LogService.info("\u001B[31m__  /_/ /_  /  __  / / /")
-            LogService.info("\u001B[31m_  ____/_  /   _  /_/ / ")
-            LogService.info("\u001B[31m/_/     /_/    /_____/  ")
-            LogService.info("\u001B[31m                        ")
+            LogService.info("_______________________ ")
+            LogService.info("___  __ \\__  __/__  __ \\")
+            LogService.info("__  /_/ /_  /  __  / / /")
+            LogService.info("_  ____/_  /   _  /_/ / ")
+            LogService.info("/_/     /_/    /_____/  ")
+            LogService.info("                        ")
         }
     }
 }
