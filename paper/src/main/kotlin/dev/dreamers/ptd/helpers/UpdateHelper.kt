@@ -3,6 +3,7 @@ package dev.dreamers.ptd.helpers
 import com.google.gson.Gson
 import dev.dreamers.ptd.PunchToDeposit
 import dev.dreamers.ptd.services.ConfigService
+import dev.dreamers.ptd.services.LogService
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
@@ -64,6 +65,7 @@ class UpdateHelper {
                         36000,
                         100,
                     )
+            LogService.info("Started update check")
         }
 
         fun startUpdateCheck() {

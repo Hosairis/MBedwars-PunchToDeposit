@@ -33,7 +33,6 @@ class PunchToDeposit : JavaPlugin() {
             LogService.info("Loaded Messages")
 
             HookHelper.init()
-            if (HookHelper.usesMBedwars) LogService.info("Hooked into MBedwars")
 
             Bukkit.getPluginManager().registerEvents(InteractListener(), this)
             Bukkit.getPluginManager().registerEvents(JoinListener(), this)
@@ -43,7 +42,6 @@ class PunchToDeposit : JavaPlugin() {
             LogService.info("Initialized metrics")
 
             UpdateHelper.startUpdateCheck()
-            LogService.info("Started update check")
             LogService.info("                    ")
         } catch (e: Exception) {
             e.printStackTrace()
