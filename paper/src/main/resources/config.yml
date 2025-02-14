@@ -1,15 +1,19 @@
-Print-SplashScreen: true
-
-Update-Check:
-  enabled: true
-
 Settings:
+  # Items that won't be deposited when left-clicking a container
   BlackListed-Items:
     - "EXAMPLE_ITEM"
 #   - "WOODEN_SWORD"
+  # Containers that won't accept deposits
   BlackListed-Containers:
     - "EXAMPLE_CONTAINER"
 #   - "FURNACE"
+
+Update-Check:
+  # Checks for plugin updates
+  enabled: true
+
+# Shows a fancy logo in the console on startup
+Print-SplashScreen: true
 
 # DO NOT TOUCH!
 config-version: 1
