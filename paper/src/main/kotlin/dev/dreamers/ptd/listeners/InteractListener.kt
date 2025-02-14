@@ -36,7 +36,7 @@ class InteractListener : Listener {
         var totalTransfer = 0
 
         if (player.isSneaking) {
-            player.inventory.storageContents.forEachIndexed { index, slot ->
+            player.inventory.contents.forEachIndexed { index, slot ->
                 if (slot?.type == itemType) {
                     val transferred =
                         InventoryHelper.transferItems(blockInventory, itemType, slot.amount)
