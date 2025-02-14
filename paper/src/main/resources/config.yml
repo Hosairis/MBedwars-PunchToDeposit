@@ -5,10 +5,11 @@ Update-Checker:
 
 Settings:
   BlackListed-Items:
-    - "WOODEN_SWORD"
-    - "IRON_SWORD"
+    - "EXAMPLE_ITEM"
+#   - "WOODEN_SWORD"
   BlackListed-Containers:
-    - "FURNACE"
+    - "EXAMPLE_CONTAINER"
+#   - "FURNACE"
 
 # DO NOT TOUCH!
 config-version: 1

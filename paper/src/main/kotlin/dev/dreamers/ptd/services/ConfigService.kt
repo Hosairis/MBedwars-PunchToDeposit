@@ -12,8 +12,8 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
 
         var PRINT_SPLASHSCREEN: Boolean = true
         var UPDATE_CHECKER_ENABLED: Boolean = true
-        var BLACKLISTED_ITEMS: List<String> = listOf("WOODEN_SWORD", "IRON_SWORD")
-        var BLACKLISTED_CONTAINERS: List<String> = listOf("HOPPER")
+        var BLACKLISTED_ITEMS: List<String> = listOf("EXAMPLE_ITEM")
+        var BLACKLISTED_CONTAINERS: List<String> = listOf("EXAMPLE_CONTAINER")
 
         var CONFIG_VERSION: Int = 1
     }
@@ -23,8 +23,8 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
 
         PRINT_SPLASHSCREEN = config.getBoolean("Print-SplashScreen")
         UPDATE_CHECKER_ENABLED = config.getBoolean("Update-Checker.enabled")
-        BLACKLISTED_ITEMS = config.getStringList("Settins.BlackListed-Items").ifEmpty { BLACKLISTED_ITEMS }
-        BLACKLISTED_CONTAINERS = config.getStringList("Settins.BlackListed-Containers").ifEmpty { BLACKLISTED_CONTAINERS }
+        BLACKLISTED_ITEMS = config.getStringList("Settings.BlackListed-Items").ifEmpty { BLACKLISTED_ITEMS }
+        BLACKLISTED_CONTAINERS = config.getStringList("Settings.BlackListed-Containers").ifEmpty { BLACKLISTED_CONTAINERS }
 
         CONFIG_VERSION = config.getInt("config-version")
     }
