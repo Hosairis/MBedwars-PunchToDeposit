@@ -35,7 +35,7 @@ class UpdateHelper {
 
         private fun checkForUpdates() {
             task?.cancel()
-            if (!ConfigService.UPDATE_CHECKER_ENABLED) return
+            if (!ConfigService.UPDATE_CHECK_ENABLED) return
 
             task =
                 Bukkit.getScheduler()

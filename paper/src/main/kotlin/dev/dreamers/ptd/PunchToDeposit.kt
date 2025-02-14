@@ -10,12 +10,14 @@ import dev.dreamers.ptd.services.ConfigService
 import dev.dreamers.ptd.services.LogService
 import dev.dreamers.ptd.services.MessageService
 import org.bstats.bukkit.Metrics
+import org.bstats.charts.SimplePie
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 
 class PunchToDeposit : JavaPlugin() {
     companion object {
         private lateinit var plugin: PunchToDeposit
+        private lateinit var metrics: Metrics
 
         fun getInst(): PunchToDeposit {
             return plugin
@@ -42,7 +44,10 @@ class PunchToDeposit : JavaPlugin() {
             getCommand("ptd")?.setExecutor(PTDCommand())
             LogService.info("Registered Commands")
 
-            Metrics(this, 24460)
+            metrics = Metrics(this, 24460)
+            metrics.addCustomChart(SimplePie("uses_bedwars") {
+                if (HookHelper.usesMBedwars) "true" else "false"
+            })
             LogService.info("Initialized metrics")
 
             UpdateHelper.startUpdateCheck()
@@ -53,5 +58,7 @@ class PunchToDeposit : JavaPlugin() {
         }
     }
 
-    override fun onDisable() {}
+    override fun onDisable() {
+        metrics.shutdown()
+    }
 }

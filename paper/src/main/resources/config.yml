@@ -1,6 +1,6 @@
 Print-SplashScreen: true
 
-Update-Checker:
+Update-Check:
   enabled: true
 
 Settings:

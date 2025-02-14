@@ -11,7 +11,7 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
         fun reload(): Boolean = instance.reload()
 
         var PRINT_SPLASHSCREEN: Boolean = true
-        var UPDATE_CHECKER_ENABLED: Boolean = true
+        var UPDATE_CHECK_ENABLED: Boolean = true
         var BLACKLISTED_ITEMS: List<String> = listOf("EXAMPLE_ITEM")
         var BLACKLISTED_CONTAINERS: List<String> = listOf("EXAMPLE_CONTAINER")
 
@@ -22,7 +22,7 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
         val config = getConfig()
 
         PRINT_SPLASHSCREEN = config.getBoolean("Print-SplashScreen")
-        UPDATE_CHECKER_ENABLED = config.getBoolean("Update-Checker.enabled")
+        UPDATE_CHECK_ENABLED = config.getBoolean("Update-Check.enabled")
         BLACKLISTED_ITEMS = config.getStringList("Settings.BlackListed-Items").ifEmpty { BLACKLISTED_ITEMS }
         BLACKLISTED_CONTAINERS = config.getStringList("Settings.BlackListed-Containers").ifEmpty { BLACKLISTED_CONTAINERS }
 
