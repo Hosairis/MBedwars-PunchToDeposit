@@ -6,6 +6,7 @@ Container-BlackListed: "%prefix &c✖ &7That container is &cBlacklisted &7from a
 Reload-Success: "%prefix &a✔ &7Config & Message files reloaded &aSuccessfully"
 Reload-Failed: "%prefix &c✖ &7Config & Message files reload &cFailed"
 Update-Found: "%prefix &c⚠ &7New update is available. Please &aUpdate &7to the latest version."
+Insufficient-Permissions: "%prefix &c✖ &7You lack the required permission: &c%permission"
 
 # DO NOT TOUCH!
 config-version: 1
