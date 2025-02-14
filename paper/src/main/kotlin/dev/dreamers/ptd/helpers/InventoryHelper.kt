@@ -82,8 +82,7 @@ class InventoryHelper {
                 blockType == Material.ENDER_CHEST -> arena.getPlayerPrivateInventory(player)
                 isLegacy ->
                     when (blockType) {
-                        Material.CHEST,
-                        Material.TRAPPED_CHEST ->
+                        Material.CHEST ->
                             arena.getTeamPrivateInventory(arena.getPlayerTeam(player))
                         else -> null
                     }
