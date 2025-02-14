@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 class InteractListener : Listener {
     @EventHandler
     private fun onInteract(event: PlayerInteractEvent) {
+        if (event.isCancelled) return
         val player = event.player
         val block = event.clickedBlock ?: return
 
