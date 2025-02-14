@@ -21,7 +21,7 @@ class PTDCommand: CommandExecutor {
         }
 
         if (args[0].equals("reload", true)) {
-            if (sender.hasPermission("ptd.commands.reload")) {
+            if (!sender.hasPermission("ptd.commands.reload")) {
                 MessageHelper.sendMessage(sender, MessageService.INSUFFICIENT_PERMISSIONS.replace("%permission", "ptd.commands.reload"))
                 return true
             }
