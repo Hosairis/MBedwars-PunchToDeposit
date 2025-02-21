@@ -1,22 +1,22 @@
 package dev.dreamers.ptd.services
 
-import org.bukkit.Bukkit
+import dev.dreamers.ptd.PunchToDeposit
 
 class LogService {
     companion object {
         @JvmStatic
         fun info(input: String) {
-            Bukkit.getLogger().info(input)
+            PunchToDeposit.getInst().logger.info(input)
         }
 
         @JvmStatic
         fun warning(input: String) {
-            Bukkit.getLogger().warning(input)
+            PunchToDeposit.getInst().logger.warning(input)
         }
 
         @JvmStatic
         fun severe(input: String) {
-            Bukkit.getLogger().severe(input)
+            PunchToDeposit.getInst().logger.severe(input)
         }
     }
 }

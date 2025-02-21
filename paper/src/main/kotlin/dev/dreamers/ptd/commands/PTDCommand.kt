@@ -8,21 +8,32 @@ import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 
-class PTDCommand: CommandExecutor {
+class PTDCommand : CommandExecutor {
     override fun onCommand(
         sender: CommandSender,
         command: Command,
         label: String,
-        args: Array<out String>
+        args: Array<out String>,
     ): Boolean {
         if (args.isEmpty()) {
-            MessageHelper.sendMessage(sender, MessageHelper.colorize("&7[&bPTD&7] &b${UpdateHelper.PLUGIN_NAME} &7version &b${UpdateHelper.PLUGIN_VERSION} &7by &bRafi &7(A.K.A Cipher)"))
+            MessageHelper.sendMessage(
+                sender,
+                MessageHelper.colorize(
+                    "&7[&bPTD&7] &b${UpdateHelper.PLUGIN_NAME} &7version &b${UpdateHelper.PLUGIN_VERSION} &7by &bRafi &7(A.K.A Cipher)"
+                ),
+            )
             return true
         }
 
         if (args[0].equals("reload", true)) {
             if (!sender.hasPermission("ptd.commands.reload")) {
-                MessageHelper.sendMessage(sender, MessageService.INSUFFICIENT_PERMISSIONS.replace("%permission", "ptd.commands.reload"))
+                MessageHelper.sendMessage(
+                    sender,
+                    MessageService.INSUFFICIENT_PERMISSIONS.replace(
+                        "%permission",
+                        "ptd.commands.reload",
+                    ),
+                )
                 return true
             }
             try {

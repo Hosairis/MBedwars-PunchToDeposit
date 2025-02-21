@@ -3,7 +3,6 @@ package dev.dreamers.ptd.helpers
 import com.google.gson.Gson
 import dev.dreamers.ptd.PunchToDeposit
 import dev.dreamers.ptd.services.ConfigService
-import dev.dreamers.ptd.services.LogService
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
@@ -14,7 +13,7 @@ import org.bukkit.scheduler.BukkitTask
 class UpdateHelper {
     companion object {
         const val PLUGIN_NAME = "PunchToDeposit"
-        const val PLUGIN_VERSION = "1.0.0"
+        const val PLUGIN_VERSION = "1.1.0"
 
         @Volatile
         var isOutDated: Boolean = false
@@ -65,7 +64,6 @@ class UpdateHelper {
                         36000,
                         100,
                     )
-            LogService.info("Started update check")
         }
 
         fun startUpdateCheck() {

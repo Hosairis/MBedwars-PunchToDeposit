@@ -1,6 +1,5 @@
 package dev.dreamers.ptd.helpers
 
-import dev.dreamers.ptd.services.ConfigService
 import dev.dreamers.ptd.services.LogService
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.command.CommandSender
@@ -33,14 +32,10 @@ class MessageHelper {
         }
 
         fun printSplashScreen() {
-            if (!ConfigService.PRINT_SPLASHSCREEN) return
-
-            LogService.info("_______________________ ")
-            LogService.info("___  __ \\__  __/__  __ \\")
-            LogService.info("__  /_/ /_  /  __  / / /")
-            LogService.info("_  ____/_  /   _  /_/ / ")
-            LogService.info("/_/     /_/    /_____/  ")
-            LogService.info("                        ")
+            LogService.info("==============================")
+            LogService.info("${UpdateHelper.PLUGIN_NAME} v${UpdateHelper.PLUGIN_VERSION} Loaded")
+            LogService.info("Developed by Rafi(A.K.A Cipher)")
+            LogService.info("==============================")
         }
     }
 }

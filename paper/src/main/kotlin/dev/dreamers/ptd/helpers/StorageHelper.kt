@@ -20,7 +20,7 @@ abstract class StorageHelper(private val fileName: String) {
 
         configuration =
             YamlDocument.create(
-                File(PunchToDeposit.getInst().dataFolder, fileName),
+                File(PunchToDeposit.getAddon().dataFolder, fileName),
                 inputStream,
                 GeneralSettings.DEFAULT,
                 DumperSettings.DEFAULT,

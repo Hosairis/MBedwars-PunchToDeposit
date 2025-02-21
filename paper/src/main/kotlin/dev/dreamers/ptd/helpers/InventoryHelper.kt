@@ -1,17 +1,12 @@
 package dev.dreamers.ptd.helpers
 
 import de.marcely.bedwars.api.BedwarsAPI
+import dev.dreamers.ptd.services.ConfigService
 import org.bukkit.Material
 import org.bukkit.block.Block
-import org.bukkit.block.Chest
-import org.bukkit.block.Container
-import org.bukkit.block.Dispenser
-import org.bukkit.block.Dropper
-import org.bukkit.block.EnderChest
-import org.bukkit.block.Furnace
-import org.bukkit.block.Hopper
 import org.bukkit.entity.Player
 import org.bukkit.inventory.Inventory
+import org.bukkit.inventory.InventoryHolder
 import org.bukkit.inventory.ItemStack
 
 class InventoryHelper {
@@ -46,47 +41,45 @@ class InventoryHelper {
             return transferred
         }
 
+        fun transferAllItems(to: Inventory, from: Inventory, material: Material): Int {
+            var totalTransfer = 0
+
+            from.contents.forEachIndexed { index, slot ->
+                if (slot?.type == material) {
+                    val transferred = InventoryHelper.transferItems(to, material, slot.amount)
+                    totalTransfer += transferred
+
+                    if (transferred == slot.amount) {
+                        from.setItem(index, null)
+                    } else {
+                        slot.amount -= transferred
+                    }
+
+                    if (transferred > 0) return@forEachIndexed
+                }
+            }
+
+            return totalTransfer
+        }
+
         fun getInventory(player: Player, clickedBlock: Block): Inventory? {
             val blockType = clickedBlock.type
             val blockState = clickedBlock.state
+            val arena = BedwarsAPI.getGameAPI().getArenaByPlayer(player) ?: return null
 
-            val isLegacy = VersionHelper.isOlderThan(VersionHelper.Version.V1_13)
-
-            fun getDefaultInventory(): Inventory? =
-                when {
-                    blockType == Material.ENDER_CHEST -> player.enderChest
-                    isLegacy ->
-                        when (blockType) {
-                            Material.CHEST,
-                            Material.TRAPPED_CHEST -> (blockState as? Chest)?.blockInventory
-                            Material.FURNACE -> (blockState as? Furnace)?.inventory
-                            Material.DISPENSER -> (blockState as? Dispenser)?.inventory
-                            Material.HOPPER -> (blockState as? Hopper)?.inventory
-                            Material.DROPPER -> (blockState as? Dropper)?.inventory
-                            else -> null
+            return when (blockType) {
+                Material.ENDER_CHEST -> arena.getPlayerPrivateInventory(player)
+                Material.valueOf(ConfigService.TEAMCHEST_BLOCK) ->
+                    if (ConfigService.TEAMCHEST_ENABLED) {
+                        arena.getTeamPrivateInventory(arena.getPlayerTeam(player))
+                    } else {
+                        if (blockState is InventoryHolder) {
+                            blockState.inventory
+                        } else {
+                            null
                         }
-                    else ->
-                        when (blockState) {
-                            is EnderChest -> player.enderChest
-                            is Container -> blockState.inventory
-                            else -> null
-                        }
-                }
-
-            if (!HookHelper.usesMBedwars) return getDefaultInventory()
-
-            val arena =
-                BedwarsAPI.getGameAPI().getArenaByPlayer(player) ?: return getDefaultInventory()
-
-            return when {
-                blockType == Material.ENDER_CHEST -> arena.getPlayerPrivateInventory(player)
-                isLegacy ->
-                    when (blockType) {
-                        Material.CHEST ->
-                            arena.getTeamPrivateInventory(arena.getPlayerTeam(player))
-                        else -> null
                     }
-                blockState is Chest -> arena.getTeamPrivateInventory(arena.getPlayerTeam(player))
+
                 else -> null
             }
         }

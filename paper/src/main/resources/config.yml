@@ -3,17 +3,10 @@ Settings:
   BlackListed-Items:
     - "EXAMPLE_ITEM"
 #   - "WOODEN_SWORD"
-  # Containers that won't accept deposits
-  BlackListed-Containers:
-    - "EXAMPLE_CONTAINER"
-#   - "FURNACE"
 
 Update-Check:
   # Checks for plugin updates
   enabled: true
 
-# Shows a fancy logo in the console on startup
-Print-SplashScreen: true
-
 # DO NOT TOUCH!
-config-version: 1
+config-version: 2

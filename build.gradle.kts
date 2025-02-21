@@ -5,7 +5,7 @@ plugins {
 
 allprojects {
     group = "dev.dreamers"
-    version = "1.0.0"
+    version = "v1.1.0"
     description = "An example template for creating Minecraft plugins"
 
     repositories {
