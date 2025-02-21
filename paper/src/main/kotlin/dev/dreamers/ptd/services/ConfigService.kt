@@ -2,6 +2,7 @@ package dev.dreamers.ptd.services
 
 import de.marcely.bedwars.api.BedwarsAPI
 import dev.dreamers.ptd.helpers.StorageHelper
+import org.bukkit.Material
 
 class ConfigService private constructor() : StorageHelper("config.yml") {
 
@@ -12,7 +13,7 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
         fun reload(): Boolean = instance.reload()
 
         var TEAMCHEST_ENABLED: Boolean = false
-        var TEAMCHEST_BLOCK: String = "CHEST"
+        var TEAMCHEST_BLOCK: Material = Material.CHEST
         var BLACKLISTED_ITEMS: List<String> = listOf("EXAMPLE_ITEM")
         var UPDATE_CHECK_ENABLED: Boolean = true
 
@@ -23,7 +24,7 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
         val config = getConfig()
 
         TEAMCHEST_ENABLED = BedwarsAPI.getConfigurationAPI().getValue("teamchest-enabled") as Boolean
-        TEAMCHEST_BLOCK = BedwarsAPI.getConfigurationAPI().getValue("teamchest-block") as String
+        TEAMCHEST_BLOCK = BedwarsAPI.getConfigurationAPI().getValue("teamchest-block") as Material
         BLACKLISTED_ITEMS = config.getStringList("Settings.BlackListed-Items").ifEmpty { BLACKLISTED_ITEMS }
         UPDATE_CHECK_ENABLED = config.getBoolean("Update-Check.enabled")
 

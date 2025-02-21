@@ -19,7 +19,7 @@ class InteractListener : Listener {
             !event.player.hasPermission("ptd.events.interact") ||
             event.action != Action.LEFT_CLICK_BLOCK ||
             event.clickedBlock == null ||
-            !(event.clickedBlock!!.type == Material.valueOf(ConfigService.TEAMCHEST_BLOCK) || event.clickedBlock!!.type == Material.ENDER_CHEST) ||
+            !(event.clickedBlock!!.type == ConfigService.TEAMCHEST_BLOCK || event.clickedBlock!!.type == Material.ENDER_CHEST) ||
             event.player.itemInHand.type == Material.AIR ||
             BedwarsAPI.getGameAPI().getArenaByPlayer(event.player) == null ||
             BedwarsAPI.getGameAPI().getArenaBySpectator(event.player) != null

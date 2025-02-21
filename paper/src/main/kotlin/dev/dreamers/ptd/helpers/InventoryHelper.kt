@@ -69,7 +69,7 @@ class InventoryHelper {
 
             return when (blockType) {
                 Material.ENDER_CHEST -> arena.getPlayerPrivateInventory(player)
-                Material.valueOf(ConfigService.TEAMCHEST_BLOCK) ->
+                ConfigService.TEAMCHEST_BLOCK ->
                     if (ConfigService.TEAMCHEST_ENABLED) {
                         arena.getTeamPrivateInventory(arena.getPlayerTeam(player))
                     } else {
