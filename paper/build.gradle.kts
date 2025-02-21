@@ -41,7 +41,7 @@ bukkitPluginYaml {
     main = "dev.dreamers.ptd.PunchToDeposit"
     authors.add("Rafi")
     apiVersion = "1.13"
-    softDepend.add("MBedwars")
+    depend.add("MBedwars")
     commands {
         create("ptd") {
             description = "Main command for PunchToDeposit"
