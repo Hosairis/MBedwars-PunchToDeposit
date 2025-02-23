@@ -18,24 +18,21 @@ class InventoryHelper {
             var remaining = amount
             var transferred = 0
 
-            for ((index, item) in to.contents.withIndex()) {
-                if (remaining == 0) break
+            to.contents.forEachIndexed { index, item ->
+                if (remaining == 0) return@forEachIndexed
 
-                when {
-                    item?.type == material && item.amount < maxStackSize -> {
-                        val toAdd = minOf(maxStackSize - item.amount, remaining)
-                        item.amount += toAdd
-                        remaining -= toAdd
-                        transferred += toAdd
-                    }
+                val toAdd = when {
+                    item?.type == material && item.amount < maxStackSize ->
+                        minOf(maxStackSize - item.amount, remaining).also { item.amount += it }
 
-                    item == null -> {
-                        val toAdd = minOf(maxStackSize, remaining)
-                        to.setItem(index, ItemStack(material, toAdd))
-                        remaining -= toAdd
-                        transferred += toAdd
-                    }
+                    item == null ->
+                        minOf(maxStackSize, remaining).also { to.setItem(index, ItemStack(material, it)) }
+
+                    else -> 0
                 }
+
+                remaining -= toAdd
+                transferred += toAdd
             }
 
             return transferred
@@ -45,15 +42,12 @@ class InventoryHelper {
             var totalTransfer = 0
 
             from.contents.forEachIndexed { index, slot ->
-                if (slot?.type == material) {
-                    val transferred = InventoryHelper.transferItems(to, material, slot.amount)
+                slot?.takeIf { it.type == material }?.let {
+                    val transferred = transferItems(to, material, it.amount)
                     totalTransfer += transferred
 
-                    if (transferred == slot.amount) {
-                        from.setItem(index, null)
-                    } else {
-                        slot.amount -= transferred
-                    }
+                    if (transferred == it.amount) from.setItem(index, null)
+                    else it.amount -= transferred
 
                     if (transferred > 0) return@forEachIndexed
                 }
@@ -63,24 +57,21 @@ class InventoryHelper {
         }
 
         fun getInventory(player: Player, clickedBlock: Block): Inventory? {
+            val arena = BedwarsAPI.getGameAPI().getArenaByPlayer(player) ?: return null
             val blockType = clickedBlock.type
             val blockState = clickedBlock.state
-            val arena = BedwarsAPI.getGameAPI().getArenaByPlayer(player) ?: return null
 
-            return when (blockType) {
-                Material.ENDER_CHEST -> arena.getPlayerPrivateInventory(player)
-                ConfigService.TEAMCHEST_BLOCK ->
-                    if (ConfigService.TEAMCHEST_ENABLED) {
+            return when {
+                blockType == Material.ENDER_CHEST ->
+                    arena.getPlayerPrivateInventory(player)
+
+                ConfigService.TEAMCHEST_ENABLED ->
+                    if (blockType == ConfigService.TEAMCHEST_BLOCK)
                         arena.getTeamPrivateInventory(arena.getPlayerTeam(player))
-                    } else {
-                        if (blockState is InventoryHolder) {
-                            blockState.inventory
-                        } else {
-                            null
-                        }
-                    }
+                    else null
 
-                else -> null
+                else -> (blockState as? InventoryHolder)?.inventory
+                    ?.takeIf { ConfigService.INTERACTING || blockType in listOf(Material.CHEST, Material.TRAPPED_CHEST) }
             }
         }
     }

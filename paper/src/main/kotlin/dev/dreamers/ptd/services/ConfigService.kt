@@ -14,6 +14,7 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
 
         var TEAMCHEST_ENABLED: Boolean = false
         var TEAMCHEST_BLOCK: Material = Material.CHEST
+        var INTERACTING: Boolean = false
         var BLACKLISTED_ITEMS: List<String> = listOf("EXAMPLE_ITEM")
         var UPDATE_CHECK_ENABLED: Boolean = true
 
@@ -25,6 +26,7 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
 
         TEAMCHEST_ENABLED = BedwarsAPI.getConfigurationAPI().getValue("teamchest-enabled") as Boolean
         TEAMCHEST_BLOCK = BedwarsAPI.getConfigurationAPI().getValue("teamchest-block") as Material
+        INTERACTING = BedwarsAPI.getConfigurationAPI().getValue("interacting") as Boolean
         BLACKLISTED_ITEMS = config.getStringList("Settings.BlackListed-Items").ifEmpty { BLACKLISTED_ITEMS }
         UPDATE_CHECK_ENABLED = config.getBoolean("Update-Check.enabled")
 
