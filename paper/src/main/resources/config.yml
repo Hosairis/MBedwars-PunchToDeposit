@@ -1,8 +1,16 @@
 Settings:
   # Items that won't be deposited when left-clicking a container
   BlackListed-Items:
-    - "EXAMPLE_ITEM"
-#   - "WOODEN_SWORD"
+   # Weapons
+   - "WOOD_SWORD"
+   - "STONE_SWORD"
+   - "IRON_SWORD"
+   - "DIAMOND_SWORD"
+   - "BOW"
+   # Utility
+   - "WOOD_PICKAXE"
+   - "WOOD_AXE"
+   - "SHEARS"
 
 Update-Check:
   # Checks for plugin updates

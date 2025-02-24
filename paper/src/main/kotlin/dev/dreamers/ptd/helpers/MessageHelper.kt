@@ -32,10 +32,10 @@ class MessageHelper {
         }
 
         fun printSplashScreen() {
-            LogService.info("==============================")
+            LogService.info("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
             LogService.info("${UpdateHelper.PLUGIN_NAME} v${UpdateHelper.PLUGIN_VERSION} Loaded")
             LogService.info("Developed by Rafi(A.K.A Cipher)")
-            LogService.info("==============================")
+            LogService.info("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
         }
     }
 }
