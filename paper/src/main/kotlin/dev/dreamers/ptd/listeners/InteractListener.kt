@@ -2,11 +2,14 @@ package dev.dreamers.ptd.listeners
 
 import de.marcely.bedwars.api.BedwarsAPI
 import de.marcely.bedwars.api.arena.ArenaStatus
+import dev.dreamers.ptd.events.PostItemDepositEvent
+import dev.dreamers.ptd.events.PreItemDepositEvent
 
 import dev.dreamers.ptd.helpers.InventoryHelper
 import dev.dreamers.ptd.helpers.MessageHelper
 import dev.dreamers.ptd.services.ConfigService
 import dev.dreamers.ptd.services.MessageService
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
@@ -41,6 +44,10 @@ class InteractListener : Listener {
                 else item.amount,
                 blockInvCapacity
             )
+        PreItemDepositEvent(player, item, amountToTransfer).apply {
+            Bukkit.getPluginManager().callEvent(this)
+            if (isCancelled) return
+        }
 
         if (player.isSneaking) {
             InventoryHelper.transferAllItems(blockInventory, player.inventory, item.type)
@@ -55,5 +62,8 @@ class InteractListener : Listener {
                 .replace("%item", MessageHelper.formatString(item.type.name))
                 .replace("%container", MessageHelper.formatString(clickedBlock.type.name)),
         )
+        PostItemDepositEvent(player, item, amountToTransfer).apply {
+            Bukkit.getPluginManager().callEvent(this)
+        }
     }
 }
