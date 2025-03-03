@@ -52,6 +52,7 @@ class PunchToDeposit : JavaPlugin() {
     }
 
     override fun onDisable() {
+        UpdateHelper.stopUpdateCheck()
         metrics.shutdown()
     }
 
