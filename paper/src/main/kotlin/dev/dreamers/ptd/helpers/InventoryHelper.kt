@@ -11,6 +11,29 @@ import org.bukkit.inventory.ItemStack
 
 class InventoryHelper {
     companion object {
+        fun getAvailableSpace(inventory: Inventory, material: Material): Int {
+            val maxStackSize = material.maxStackSize
+            var availableSpace = 0
+
+            for (item in inventory.contents) {
+                when {
+                    item == null || item.type == Material.AIR -> {
+                        // Empty slot can hold a full stack
+                        availableSpace += maxStackSize
+                    }
+                    item.type == material && item.amount < maxStackSize -> {
+                        // Partial stack can hold more items
+                        availableSpace += maxStackSize - item.amount
+                    }
+                }
+            }
+            return availableSpace
+        }
+
+        fun getTotalItemAmount(inventory: Inventory, material: Material): Int {
+            return inventory.contents.filter { it?.type == material }.sumOf { it?.amount ?: 0 }
+        }
+
         fun transferItems(to: Inventory, material: Material, amount: Int): Int {
             if (amount <= 0) return 0
 
