@@ -12,10 +12,10 @@ Settings:
     Text:
       - "&7PUNCH TO"
       - "&7DEPOSIT"
-    # Area that the plugin will try to locate private/team chests
+    # Radius that the plugin will try to locate private/team chests
     Search:
       X: 8
-      Y: 3
+      Y: 4
       Z: 8
     # Hologram offset
     Offsets:
