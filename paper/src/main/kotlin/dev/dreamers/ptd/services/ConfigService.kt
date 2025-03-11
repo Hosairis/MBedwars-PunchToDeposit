@@ -45,9 +45,9 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
         HOLOGRAMS_X_SEARCH = config.getInt("Settings.Holograms.Search.X")
         HOLOGRAMS_Y_SEARCH = config.getInt("Settings.Holograms.Search.Y")
         HOLOGRAMS_Z_SEARCH = config.getInt("Settings.Holograms.Search.Z")
-        HOLOGRAMS_OFFSET_X = config.getDouble("Settings.Holograms.Offset.X")
-        HOLOGRAMS_OFFSET_Y = config.getDouble("Settings.Holograms.Offset.Y")
-        HOLOGRAMS_OFFSET_Z = config.getDouble("Settings.Holograms.Offset.Z")
+        HOLOGRAMS_OFFSET_X = config.getDouble("Settings.Holograms.Offsets.X")
+        HOLOGRAMS_OFFSET_Y = config.getDouble("Settings.Holograms.Offsets.Y")
+        HOLOGRAMS_OFFSET_Z = config.getDouble("Settings.Holograms.Offsets.Z")
 
         BLACKLISTED_ITEMS = config.getStringList("Settings.BlackListed-Items").mapNotNull { Helper.get().getMaterialByName(it) }
 
