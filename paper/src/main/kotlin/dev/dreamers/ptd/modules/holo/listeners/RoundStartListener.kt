@@ -24,9 +24,9 @@ class RoundStartListener: Listener {
             val teamChestLocOpt = arena.persistentStorage.get("${team.name}_teamChestLoc")
             val teamHolo = teamChestLocOpt.map { locStr ->
                 val locArgs = locStr.split(",")
-                val x = locArgs[0].toDouble() + 0.5
-                val y = locArgs[1].toDouble() + 1
-                val z = locArgs[2].toDouble() + 0.5
+                val x = locArgs[0].toDouble() + ConfigService.HOLOGRAMS_OFFSET_X
+                val y = locArgs[1].toDouble() + ConfigService.HOLOGRAMS_OFFSET_Y
+                val z = locArgs[2].toDouble() + ConfigService.HOLOGRAMS_OFFSET_Z
                 LogService.debug("Team chest loc: $x, $y, $z")
 
                 val holoEntity = worldStorage.spawnHologram(
@@ -42,9 +42,9 @@ class RoundStartListener: Listener {
             val privateChestLocOpt = arena.persistentStorage.get("${team.name}_privateChestLoc")
             val privateHolo = privateChestLocOpt.map { locStr ->
                 val locArgs = locStr.split(",")
-                val x = locArgs[0].toDouble() + 0.5
-                val y = locArgs[1].toDouble() + 1
-                val z = locArgs[2].toDouble() + 0.5
+                val x = locArgs[0].toDouble() + ConfigService.HOLOGRAMS_OFFSET_X
+                val y = locArgs[1].toDouble() + ConfigService.HOLOGRAMS_OFFSET_Y
+                val z = locArgs[2].toDouble() + ConfigService.HOLOGRAMS_OFFSET_Z
                 LogService.debug("Private chest loc: $x, $y, $z")
 
                 val holoEntity = worldStorage.spawnHologram(

@@ -18,6 +18,9 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
 
         var HOLOGRAMS_ENABLED: Boolean = true
         var HOLOGRAMS_TEXT: List<String> = listOf("&7PUNCH TO", "&7DEPOSIT")
+        var HOLOGRAMS_X_SEARCH: Int = 8
+        var HOLOGRAMS_Y_SEARCH: Int = 3
+        var HOLOGRAMS_Z_SEARCH: Int = 8
         var HOLOGRAMS_OFFSET_X: Double = 0.5
         var HOLOGRAMS_OFFSET_Y: Double = 1.0
         var HOLOGRAMS_OFFSET_Z: Double = 0.5
@@ -37,11 +40,14 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
         TEAMCHEST_SOUND = config.getString("Settings.Sounds.TeamChest")
         PRIVATECHEST_SOUND = config.getString("Settings.Sounds.PrivateChest")
 
-        HOLOGRAMS_ENABLED = config.getBoolean("Settings.holograms.enabled")
-        HOLOGRAMS_TEXT = config.getStringList("Settings.holograms.text").map { MessageHelper.colorize(it) }
-        HOLOGRAMS_OFFSET_X = config.getDouble("Settings.holograms.offset.x")
-        HOLOGRAMS_OFFSET_Y = config.getDouble("Settings.holograms.offset.y")
-        HOLOGRAMS_OFFSET_Z = config.getDouble("Settings.holograms.offset.z")
+        HOLOGRAMS_ENABLED = config.getBoolean("Settings.Holograms.Enabled")
+        HOLOGRAMS_TEXT = config.getStringList("Settings.Holograms.Text").map { MessageHelper.colorize(it) }
+        HOLOGRAMS_X_SEARCH = config.getInt("Settings.Holograms.Search.X")
+        HOLOGRAMS_Y_SEARCH = config.getInt("Settings.Holograms.Search.Y")
+        HOLOGRAMS_Z_SEARCH = config.getInt("Settings.Holograms.Search.Z")
+        HOLOGRAMS_OFFSET_X = config.getDouble("Settings.Holograms.Offset.X")
+        HOLOGRAMS_OFFSET_Y = config.getDouble("Settings.Holograms.Offset.Y")
+        HOLOGRAMS_OFFSET_Z = config.getDouble("Settings.Holograms.Offset.Z")
 
         BLACKLISTED_ITEMS = config.getStringList("Settings.BlackListed-Items").mapNotNull { Helper.get().getMaterialByName(it) }
 

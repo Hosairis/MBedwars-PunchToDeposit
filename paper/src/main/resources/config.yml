@@ -5,18 +5,23 @@ Settings:
     # Sound to play when a player deposits items to a private chest
     PrivateChest: "BLOCK_ENDER_CHEST_CLOSE"
 
-  holograms:
+  Holograms:
     # Enable holograms
-    enabled: true
+    Enabled: true
     # Hologram text
-    text:
+    Text:
       - "&7PUNCH TO"
       - "&7DEPOSIT"
+    # Area that the plugin will try to locate private/team chests
+    Search:
+      X: 8
+      Y: 3
+      Z: 8
     # Hologram offset
-    offsets:
-      x: 0.5
-      y: 1.0
-      z: 0.5
+    Offsets:
+      X: 0.5
+      Y: 1.0
+      Z: 0.5
 
   # Items that won't be deposited when left-clicking a container
   BlackListed-Items:

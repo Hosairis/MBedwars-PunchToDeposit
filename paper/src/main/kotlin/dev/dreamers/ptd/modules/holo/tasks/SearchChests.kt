@@ -4,6 +4,7 @@ import de.marcely.bedwars.api.BedwarsAPI
 import de.marcely.bedwars.api.event.player.PlayerOpenArenaChestEvent.ChestType
 import dev.dreamers.ptd.PunchToDeposit
 import dev.dreamers.ptd.modules.holo.TeamData
+import dev.dreamers.ptd.services.ConfigService
 import dev.dreamers.ptd.services.LogService
 import org.bukkit.scheduler.BukkitRunnable
 
@@ -20,12 +21,12 @@ class SearchChests {
                 val world = arena.gameWorld ?: continue
                 for (team in arena.enabledTeams) {
                     val spawnLocation = arena.getTeamSpawn(team) ?: continue
-                    val minX = spawnLocation.blockX - 10
-                    val minY = (spawnLocation.blockY - 10).coerceAtLeast(-64)
-                    val minZ = spawnLocation.blockZ - 10
-                    val maxX = spawnLocation.blockX + 10
-                    val maxY = (spawnLocation.blockY + 10).coerceAtMost(world.maxHeight)
-                    val maxZ = spawnLocation.blockZ + 10
+                    val minX = spawnLocation.blockX - ConfigService.HOLOGRAMS_X_SEARCH
+                    val minY = (spawnLocation.blockY - ConfigService.HOLOGRAMS_Y_SEARCH).coerceAtLeast(-64)
+                    val minZ = spawnLocation.blockZ - ConfigService.HOLOGRAMS_Z_SEARCH
+                    val maxX = spawnLocation.blockX + ConfigService.HOLOGRAMS_X_SEARCH
+                    val maxY = (spawnLocation.blockY + ConfigService.HOLOGRAMS_Y_SEARCH).coerceAtMost(world.maxHeight)
+                    val maxZ = spawnLocation.blockZ + ConfigService.HOLOGRAMS_Z_SEARCH
 
                     teamTracks.add(
                         TeamData(

@@ -3,8 +3,6 @@ package dev.dreamers.ptd.helpers
 import de.marcely.bedwars.api.BedwarsAPI
 import de.marcely.bedwars.api.arena.Arena
 import de.marcely.bedwars.tools.Helper
-import dev.dreamers.ptd.services.ConfigService
-import org.bukkit.Location
 import org.bukkit.block.Block
 import org.bukkit.inventory.InventoryHolder
 
