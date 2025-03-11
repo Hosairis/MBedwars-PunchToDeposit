@@ -1,4 +1,4 @@
-package dev.dreamers.ptd.events
+package dev.dreamers.ptd.api.events
 
 import org.bukkit.entity.Player
 import org.bukkit.event.Cancellable

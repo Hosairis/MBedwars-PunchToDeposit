@@ -1,16 +1,16 @@
-package dev.dreamers.ptd.listeners
+package dev.dreamers.ptd.modules.deposit.listeners
 
 import de.marcely.bedwars.api.BedwarsAPI
 import de.marcely.bedwars.api.arena.ArenaStatus
 import de.marcely.bedwars.api.event.player.PlayerOpenArenaChestEvent
 import de.marcely.bedwars.api.event.player.PlayerOpenArenaChestEvent.ChestType
 import de.marcely.bedwars.tools.Helper
-import dev.dreamers.ptd.events.PostItemDepositEvent
-import dev.dreamers.ptd.events.PreItemDepositEvent
+import dev.dreamers.ptd.api.events.PostItemDepositEvent
+import dev.dreamers.ptd.api.events.PreItemDepositEvent
 import dev.dreamers.ptd.helpers.BlockHelper
-
 import dev.dreamers.ptd.helpers.InventoryHelper
 import dev.dreamers.ptd.helpers.MessageHelper
+import dev.dreamers.ptd.modules.holo.HoloModule
 import dev.dreamers.ptd.services.ConfigService
 import dev.dreamers.ptd.services.MessageService
 import org.bukkit.Bukkit
@@ -20,7 +20,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 
-class InteractListener : Listener {
+class InteractListener: Listener {
     @EventHandler
     private fun onInteract(event: PlayerInteractEvent) {
         if (event.isCancelled || event.action != Action.LEFT_CLICK_BLOCK) return
@@ -72,6 +72,8 @@ class InteractListener : Listener {
         if (soundName.isNotEmpty() && !soundName.equals("None", true)) {
             Helper.get().playSound(clickedBlock.location, Helper.get().getSoundByName(soundName), 1f, 1f)
         }
+        val holo = HoloModule.holoList.firstOrNull { it.arena == arena && it.team == arena.getPlayerTeam(player) }
+        holo?.removePlayer(player, chestType)
 
         MessageHelper.sendMessage(
             player,

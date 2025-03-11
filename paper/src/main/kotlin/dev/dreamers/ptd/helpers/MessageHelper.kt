@@ -1,5 +1,6 @@
 package dev.dreamers.ptd.helpers
 
+import dev.dreamers.ptd.PunchToDeposit
 import dev.dreamers.ptd.services.LogService
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.command.CommandSender
@@ -33,7 +34,7 @@ class MessageHelper {
 
         fun printSplashScreen() {
             LogService.info("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
-            LogService.info("${UpdateHelper.PLUGIN_NAME} v${UpdateHelper.PLUGIN_VERSION} Loaded")
+            LogService.info("${PunchToDeposit.PLUGIN_NAME} v${PunchToDeposit.PLUGIN_VERSION} Loaded")
             LogService.info("Developed by Rafi(A.K.A Cipher)")
             LogService.info("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
         }

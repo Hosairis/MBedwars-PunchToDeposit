@@ -1,7 +1,7 @@
 package dev.dreamers.ptd.commands
 
+import dev.dreamers.ptd.PunchToDeposit
 import dev.dreamers.ptd.helpers.MessageHelper
-import dev.dreamers.ptd.helpers.UpdateHelper
 import dev.dreamers.ptd.services.ConfigService
 import dev.dreamers.ptd.services.MessageService
 import org.bukkit.command.Command
@@ -19,7 +19,7 @@ class PTDCommand : CommandExecutor {
             MessageHelper.sendMessage(
                 sender,
                 MessageHelper.colorize(
-                    "&7[&bPTD&7] &b${UpdateHelper.PLUGIN_NAME} &7version &b${UpdateHelper.PLUGIN_VERSION} &7by &bRafi &7(A.K.A Cipher)"
+                    "&7[&bPTD&7] &b${PunchToDeposit.PLUGIN_NAME} &7version &b${PunchToDeposit.PLUGIN_VERSION} &7by &bRafi &7(A.K.A Cipher)"
                 ),
             )
             return true

@@ -1,8 +1,22 @@
 Settings:
-  # Sound to play when a player deposits items to a team chest
-  TeamChest-Sound: "BLOCK_CHEST_CLOSE"
-  # Sound to play when a player deposits items to a private chest
-  PrivateChest-Sound: "BLOCK_ENDER_CHEST_CLOSE"
+  Sounds:
+    # Sound to play when a player deposits items to a team chest
+    TeamChest: "BLOCK_CHEST_CLOSE"
+    # Sound to play when a player deposits items to a private chest
+    PrivateChest: "BLOCK_ENDER_CHEST_CLOSE"
+
+  holograms:
+    # Enable holograms
+    enabled: true
+    # Hologram text
+    text:
+      - "&7PUNCH TO"
+      - "&7DEPOSIT"
+    # Hologram offset
+    offsets:
+      x: 0.5
+      y: 1.0
+      z: 0.5
 
   # Items that won't be deposited when left-clicking a container
   BlackListed-Items:

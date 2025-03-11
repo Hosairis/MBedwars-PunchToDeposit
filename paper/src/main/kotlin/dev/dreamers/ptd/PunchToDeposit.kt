@@ -2,7 +2,6 @@ package dev.dreamers.ptd
 
 import dev.dreamers.ptd.commands.PTDCommand
 import dev.dreamers.ptd.helpers.MessageHelper
-import dev.dreamers.ptd.helpers.UpdateHelper
 import dev.dreamers.ptd.services.ConfigService
 import dev.dreamers.ptd.services.LogService
 import dev.dreamers.ptd.services.MessageService
@@ -16,8 +15,11 @@ class PunchToDeposit : JavaPlugin() {
         private lateinit var addon: PunchToDepositAddon
         private lateinit var metrics: Metrics
 
+        const val PLUGIN_NAME = "PunchToDeposit"
+        const val PLUGIN_VERSION = "1.2.0"
+
         const val MIN_BW_API_VER = 200
-        const val MIN_BW_VER = "5.5"
+        const val MIN_BW_VER = "5.5.1"
 
         fun getInst(): PunchToDeposit {
             return plugin
@@ -38,10 +40,10 @@ class PunchToDeposit : JavaPlugin() {
             ConfigService.init()
             MessageService.init()
 
-            addon.registerEvents()
+            addon.registerModules()
+
             getCommand("ptd")?.setExecutor(PTDCommand())
 
-            UpdateHelper.startUpdateCheck()
             metrics = Metrics(this, 24460)
 
             MessageHelper.printSplashScreen()
@@ -52,8 +54,8 @@ class PunchToDeposit : JavaPlugin() {
     }
 
     override fun onDisable() {
-        UpdateHelper.stopUpdateCheck()
         metrics.shutdown()
+        addon.unregisterModules()
     }
 
     private fun checkMBedwars(): Boolean {
