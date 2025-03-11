@@ -33,9 +33,9 @@ class InteractListener: Listener {
             ?.takeIf { BlockHelper.isContainer(arena, it) && arena.isInside(it.location) } ?: return
         val chestType = arena.getChestType(clickedBlock) ?: return
         val item = player.itemInHand
-            .takeIf { it.type != Material.AIR && it.type.name !in ConfigService.BLACKLISTED_ITEMS }
+            .takeIf { it.type != Material.AIR && it.type !in ConfigService.BLACKLISTED_ITEMS }
             ?: run {
-                if (player.itemInHand.type.name in ConfigService.BLACKLISTED_ITEMS) { MessageHelper.sendMessage(player, MessageService.ITEM_BLACKLISTED) }
+                if (player.itemInHand.type in ConfigService.BLACKLISTED_ITEMS) { MessageHelper.sendMessage(player, MessageService.ITEM_BLACKLISTED) }
                 return
             }
         val blockInventory = InventoryHelper.getInventory(arena, player, clickedBlock) ?: return

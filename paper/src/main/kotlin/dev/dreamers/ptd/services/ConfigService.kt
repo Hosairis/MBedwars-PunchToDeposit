@@ -1,7 +1,9 @@
 package dev.dreamers.ptd.services
 
+import de.marcely.bedwars.tools.Helper
 import dev.dreamers.ptd.helpers.MessageHelper
 import dev.dreamers.ptd.helpers.StorageHelper
+import org.bukkit.Material
 
 class ConfigService private constructor() : StorageHelper("config.yml") {
 
@@ -20,7 +22,7 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
         var HOLOGRAMS_OFFSET_Y: Double = 1.0
         var HOLOGRAMS_OFFSET_Z: Double = 0.5
 
-        var BLACKLISTED_ITEMS: List<String> = listOf("WOOD_SWORD", "STONE_SWORD", "IRON_SWORD", "DIAMOND_SWORD", "GOLDEN_SWORD", "BOW", "WOOD_PICKAXE", "WOOD_AXE", "SHEARS")
+        var BLACKLISTED_ITEMS: List<Material> = listOf()
 
         var DEBUG: Boolean = false
 
@@ -41,7 +43,7 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
         HOLOGRAMS_OFFSET_Y = config.getDouble("Settings.holograms.offset.y")
         HOLOGRAMS_OFFSET_Z = config.getDouble("Settings.holograms.offset.z")
 
-        BLACKLISTED_ITEMS = config.getStringList("Settings.BlackListed-Items")
+        BLACKLISTED_ITEMS = config.getStringList("Settings.BlackListed-Items").mapNotNull { Helper.get().getMaterialByName(it) }
 
         DEBUG = config.getBoolean("Debug-Mode.Enabled")
 
