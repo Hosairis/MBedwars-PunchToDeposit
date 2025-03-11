@@ -12,9 +12,6 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
         fun init() = instance.init()
         fun reload(): Boolean = instance.reload()
 
-        var TEAMCHEST_ENABLED: Boolean = false
-        var TEAMCHEST_BLOCK: Material = Material.CHEST
-        var INTERACTING: Boolean = false
         var TEAMCHEST_SOUND: String = "BLOCK_CHEST_CLOSE"
         var PRIVATECHEST_SOUND: String = "BLOCK_ENDER_CHEST_CLOSE"
         var BLACKLISTED_ITEMS: List<String> = listOf("EXAMPLE_ITEM")
@@ -27,9 +24,6 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
     override fun loadValues() {
         val config = getConfig()
 
-        TEAMCHEST_ENABLED = BedwarsAPI.getConfigurationAPI().getValue("teamchest-enabled") as Boolean
-        TEAMCHEST_BLOCK = BedwarsAPI.getConfigurationAPI().getValue("teamchest-block") as Material
-        INTERACTING = BedwarsAPI.getConfigurationAPI().getValue("interacting") as Boolean
         TEAMCHEST_SOUND = config.getString("Settings.TeamChest-Sound")
         PRIVATECHEST_SOUND = config.getString("Settings.PrivateChest-Sound")
         BLACKLISTED_ITEMS = config.getStringList("Settings.BlackListed-Items").ifEmpty { BLACKLISTED_ITEMS }

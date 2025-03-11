@@ -110,12 +110,10 @@ class InventoryHelper {
          * @return Total number of items transferred
          */
         fun addAllItemsToInventory(toInventory: Inventory, fromInventory: Inventory, itemTemplate: ItemStack): Int {
-            // Early validation
             if (itemTemplate.amount <= 0 || itemTemplate.maxStackSize <= 0 || fromInventory.isEmpty) return 0
 
             val fromContents = fromInventory.contents ?: return 0
 
-            // Calculate total amount of matching items in source inventory
             var totalAvailable = 0
             for (slot in fromContents) {
                 if (slot != null && slot.isSimilar(itemTemplate)) {
@@ -125,15 +123,12 @@ class InventoryHelper {
 
             if (totalAvailable == 0) return 0
 
-            // Attempt to transfer (copy) all available items to destination
             return addItemsToInventory(toInventory, itemTemplate, totalAvailable)
         }
 
         fun getInventory(arena: Arena, player: Player, block: Block): Inventory? {
-            val chestType = arena.getChestType(block) ?: return null
-            val inventory = arena.getChestInventory(block, player) ?: return null
-
-            return inventory
+            arena.getChestType(block) ?: return null
+            return arena.getChestInventory(block, player)
         }
     }
 }
