@@ -25,7 +25,7 @@ abstract class StorageHelper(private val fileName: String) {
                 GeneralSettings.DEFAULT,
                 DumperSettings.DEFAULT,
                 LoaderSettings.builder().setAutoUpdate(true).build(),
-                UpdaterSettings.builder().setVersioning(BasicVersioning("config-version")).build(),
+                UpdaterSettings.builder().setVersioning(BasicVersioning("Config-Version")).build(),
             )
 
         loadValues()

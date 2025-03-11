@@ -18,5 +18,11 @@ class LogService {
         fun severe(input: String) {
             PunchToDeposit.getInst().logger.severe(input)
         }
+
+        @JvmStatic
+        fun debug(input: String) {
+            if (!ConfigService.DEBUG) return
+            PunchToDeposit.getInst().logger.info("[DEBUG] $input")
+        }
     }
 }

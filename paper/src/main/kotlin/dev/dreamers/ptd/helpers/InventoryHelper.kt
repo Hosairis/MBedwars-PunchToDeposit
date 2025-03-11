@@ -1,13 +1,12 @@
 package dev.dreamers.ptd.helpers
 
-import de.marcely.bedwars.api.BedwarsAPI
-import dev.dreamers.ptd.services.ConfigService
+import de.marcely.bedwars.api.arena.Arena
 import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.entity.Player
 import org.bukkit.inventory.Inventory
-import org.bukkit.inventory.InventoryHolder
 import org.bukkit.inventory.ItemStack
+import kotlin.math.min
 
 class InventoryHelper {
     companion object {
@@ -21,6 +20,7 @@ class InventoryHelper {
                         // Empty slot can hold a full stack
                         availableSpace += maxStackSize
                     }
+
                     item.type == material && item.amount < maxStackSize -> {
                         // Partial stack can hold more items
                         availableSpace += maxStackSize - item.amount
@@ -34,68 +34,106 @@ class InventoryHelper {
             return inventory.contents.filter { it?.type == material }.sumOf { it?.amount ?: 0 }
         }
 
-        fun transferItems(to: Inventory, material: Material, amount: Int): Int {
-            if (amount <= 0) return 0
+        /**
+         * Adds items to an inventory, filling partial stacks first, with optimized performance
+         * @param inventory Target inventory
+         * @param itemStack Item type to add
+         * @param amount Number of items to attempt adding
+         * @return Number of items successfully added
+         */
+        fun addItemsToInventory(inventory: Inventory, itemStack: ItemStack, amount: Int): Int {
+            if (amount <= 0 || itemStack.maxStackSize <= 0) return 0
 
-            val maxStackSize = material.maxStackSize
+            val maxStackSize = itemStack.maxStackSize
             var remaining = amount
-            var transferred = 0
+            var added = 0
 
-            to.contents.forEachIndexed { index, item ->
-                if (remaining == 0) return@forEachIndexed
+            val contents = inventory.contents ?: return 0
 
-                val toAdd = when {
-                    item?.type == material && item.amount < maxStackSize ->
-                        minOf(maxStackSize - item.amount, remaining).also { item.amount += it }
+            var i = 0
+            while (i < contents.size && remaining > 0) {
+                val slot = contents[i]
+                if (slot != null && slot.isSimilar(itemStack) && slot.amount < maxStackSize) {
+                    val space = maxStackSize - slot.amount
+                    val toAdd = min(space, remaining)
+                    slot.amount += toAdd
+                    added += toAdd
+                    remaining -= toAdd
+                }
+                i++
+            }
 
-                    item == null ->
-                        minOf(maxStackSize, remaining).also { to.setItem(index, ItemStack(material, it)) }
+            if (remaining > 0) {
+                val fullStacks = remaining / maxStackSize
+                val leftover = remaining % maxStackSize
 
-                    else -> 0
+                val toAdd = itemStack.clone()
+
+                if (fullStacks > 0) {
+                    toAdd.amount = maxStackSize
+                    val stacksToAdd = Array(fullStacks) { toAdd.clone() }
+                    val leftoverMap = inventory.addItem(*stacksToAdd)
+
+                    if (leftoverMap.isEmpty()) {
+                        added += fullStacks * maxStackSize
+                    } else {
+                        val addedStacks = fullStacks - leftoverMap.size
+                        added += addedStacks * maxStackSize
+                        leftoverMap.values.firstOrNull()?.let { remainingStack ->
+                            added += maxStackSize - remainingStack.amount
+                        }
+                        return added
+                    }
                 }
 
-                remaining -= toAdd
-                transferred += toAdd
-            }
-
-            return transferred
-        }
-
-        fun transferAllItems(to: Inventory, from: Inventory, material: Material): Int {
-            var totalTransfer = 0
-
-            from.contents.forEachIndexed { index, slot ->
-                slot?.takeIf { it.type == material }?.let {
-                    val transferred = transferItems(to, material, it.amount)
-                    totalTransfer += transferred
-
-                    if (transferred == it.amount) from.setItem(index, null)
-                    else it.amount -= transferred
-
-                    if (transferred > 0) return@forEachIndexed
+                if (leftover > 0) {
+                    toAdd.amount = leftover
+                    val leftoverMap = inventory.addItem(toAdd)
+                    if (leftoverMap.isEmpty()) {
+                        added += leftover
+                    } else {
+                        leftoverMap.values.firstOrNull()?.let { remainingStack ->
+                            added += leftover - remainingStack.amount
+                        }
+                    }
                 }
             }
 
-            return totalTransfer
+            return added
         }
 
-        fun getInventory(player: Player, clickedBlock: Block): Inventory? {
-            val arena = BedwarsAPI.getGameAPI().getArenaByPlayer(player) ?: return null
-            val blockType = clickedBlock.type
-            val blockState = clickedBlock.state
+        /**
+         * Transfers all items matching the given ItemStack type from one inventory to another
+         * @param toInventory Destination inventory
+         * @param fromInventory Source inventory
+         * @param itemTemplate Template ItemStack defining the item type to transfer
+         * @return Total number of items transferred
+         */
+        fun addAllItemsToInventory(toInventory: Inventory, fromInventory: Inventory, itemTemplate: ItemStack): Int {
+            // Early validation
+            if (itemTemplate.amount <= 0 || itemTemplate.maxStackSize <= 0 || fromInventory.isEmpty) return 0
 
-            return when {
-                blockType == Material.ENDER_CHEST ->
-                    arena.getPlayerPrivateInventory(player)
+            val fromContents = fromInventory.contents ?: return 0
 
-                ConfigService.TEAMCHEST_ENABLED ->
-                    if (blockType == ConfigService.TEAMCHEST_BLOCK)
-                        arena.getTeamPrivateInventory(arena.getPlayerTeam(player))
-                    else null
-
-                else -> (blockState as? InventoryHolder)?.inventory
-                    ?.takeIf { ConfigService.INTERACTING || blockType in listOf(Material.CHEST, Material.TRAPPED_CHEST) }
+            // Calculate total amount of matching items in source inventory
+            var totalAvailable = 0
+            for (slot in fromContents) {
+                if (slot != null && slot.isSimilar(itemTemplate)) {
+                    totalAvailable += slot.amount
+                }
             }
+
+            if (totalAvailable == 0) return 0
+
+            // Attempt to transfer (copy) all available items to destination
+            return addItemsToInventory(toInventory, itemTemplate, totalAvailable)
+        }
+
+        fun getInventory(arena: Arena, player: Player, block: Block): Inventory? {
+            val chestType = arena.getChestType(block) ?: return null
+            val inventory = arena.getChestInventory(block, player) ?: return null
+
+            return inventory
         }
     }
 }

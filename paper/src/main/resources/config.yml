@@ -1,4 +1,9 @@
 Settings:
+  # Sound to play when a player deposits items to a team chest
+  TeamChest-Sound: "BLOCK_CHEST_CLOSE"
+  # Sound to play when a player deposits items to a private chest
+  PrivateChest-Sound: "BLOCK_ENDER_CHEST_CLOSE"
+
   # Items that won't be deposited when left-clicking a container
   BlackListed-Items:
    # Weapons
@@ -14,7 +19,11 @@ Settings:
 
 Update-Check:
   # Checks for plugin updates
-  enabled: true
+  Enabled: true
+
+Debug-Mode:
+  # Enables debug mode
+  Enabled: false
 
 # DO NOT TOUCH!
-config-version: 2
+Config-Version: 3

@@ -14,7 +14,8 @@ class MessageService private constructor() : StorageHelper("messages.yml") {
         private fun setPlaceHolders(input: String): String = instance.setPlaceHolders(input)
 
         var PREFIX: String = MessageHelper.colorize("&7[&bPTD&7]&r")
-        var TRANSFER_SUCCESS: String = setPlaceHolders("%prefix &a✔ &7Deposited &fx%amount %item &7into &f%container")
+        var TEAMCHEST_TRANSFER: String = setPlaceHolders("%prefix &a✔ &7Deposited &fx%amount %item &7into &bTeam Chest&7!")
+        var PRIVATECHEST_TRANSFER: String = setPlaceHolders("%prefix &a✔ &7Deposited &fx%amount %item &7into &dEnder Chest&7!")
         var ITEM_BLACKLISTED: String = setPlaceHolders("%prefix &c✖ &7That item is &cBlacklisted &7from being deposited")
         var CONTAINER_BLACKLISTED: String = setPlaceHolders("%prefix &c✖ &7That container is &cBlacklisted &7from accepting items as deposits")
         var RELOAD_SUCCESS: String = setPlaceHolders("%prefix &a✔ &7Config & Message files reloaded &aSuccessfully")
@@ -33,7 +34,8 @@ class MessageService private constructor() : StorageHelper("messages.yml") {
         val config = getConfig()
 
         PREFIX = setPlaceHolders(config.getString("Prefix"))
-        TRANSFER_SUCCESS = setPlaceHolders(config.getString("Transfer-Success"))
+        TEAMCHEST_TRANSFER = setPlaceHolders(config.getString("TeamChest-Transfer"))
+        PRIVATECHEST_TRANSFER = setPlaceHolders(config.getString("PrivateChest-Transfer"))
         ITEM_BLACKLISTED = setPlaceHolders(config.getString("Item-BlackListed"))
         CONTAINER_BLACKLISTED = setPlaceHolders(config.getString("Container-BlackListed"))
         RELOAD_SUCCESS = setPlaceHolders(config.getString("Reload-Success"))

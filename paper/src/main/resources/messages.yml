@@ -1,6 +1,7 @@
 Prefix: "&7[&bPTD&7]&r"
 
-Transfer-Success: "%prefix &a✔ &7Deposited &fx%amount %item &7into &f%container"
+TeamChest-Transfer: "%prefix &a✔ &7Deposited &fx%amount %item &7into &bTeam Chest&7!"
+PrivateChest-Transfer: "%prefix &a✔ &7Deposited &fx%amount %item &7into &dEnder Chest&7!"
 Item-BlackListed: "%prefix &c✖ &7That item is &cBlacklisted &7from being deposited"
 Container-BlackListed: "%prefix &c✖ &7That container is &cBlacklisted &7from accepting items as deposits"
 Reload-Success: "%prefix &a✔ &7Reload &aSuccessful"
@@ -9,4 +10,4 @@ Update-Found: "%prefix &c⚠ &7New update is available. Please &aUpdate &7to the
 Insufficient-Permissions: "%prefix &c✖ &7You lack the required permission: &c%permission"
 
 # DO NOT TOUCH!
-config-version: 1
+Config-Version: 2
