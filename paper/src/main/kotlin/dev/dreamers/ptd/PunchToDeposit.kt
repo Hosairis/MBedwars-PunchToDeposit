@@ -16,7 +16,7 @@ class PunchToDeposit : JavaPlugin() {
         private lateinit var metrics: Metrics
 
         const val PLUGIN_NAME = "PunchToDeposit"
-        const val PLUGIN_VERSION = "1.2.0"
+        const val PLUGIN_VERSION = "1.3.0"
 
         const val MIN_BW_API_VER = 200
         const val MIN_BW_VER = "5.5.1"
