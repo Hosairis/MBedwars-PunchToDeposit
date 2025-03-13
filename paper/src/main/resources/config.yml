@@ -3,7 +3,7 @@ Settings:
     # Sound to play when a player deposits items to a team chest
     TeamChest: "BLOCK_CHEST_CLOSE"
     # Sound to play when a player deposits items to a private chest
-    PrivateChest: "BLOCK_ENDER_CHEST_CLOSE"
+    PrivateChest: "BLOCK_CHEST_CLOSE"
 
   Holograms:
     # Enable holograms
