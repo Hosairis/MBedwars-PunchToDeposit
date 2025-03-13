@@ -72,8 +72,10 @@ class InteractListener: Listener {
         if (soundName.isNotEmpty() && !soundName.equals("None", true)) {
             Helper.get().playSound(clickedBlock.location, Helper.get().getSoundByName(soundName), 1f, 1f)
         }
-        val holo = HoloModule.holoList.firstOrNull { it.arena == arena && it.team == arena.getPlayerTeam(player) }
-        holo?.removePlayer(player, chestType)
+        if (ConfigService.HOLOGRAMS_REMOVE_AFTER_DEPOSIT) {
+            val holo = HoloModule.holoList.firstOrNull { it.arena == arena && it.team == arena.getPlayerTeam(player) }
+            holo?.removePlayer(player, chestType)
+        }
 
         MessageHelper.sendMessage(
             player,

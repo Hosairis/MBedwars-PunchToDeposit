@@ -17,6 +17,7 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
         var PRIVATECHEST_SOUND: String = "BLOCK_ENDER_CHEST_CLOSE"
 
         var HOLOGRAMS_ENABLED: Boolean = true
+        var HOLOGRAMS_REMOVE_AFTER_DEPOSIT: Boolean = true
         var HOLOGRAMS_TEXT: List<String> = listOf("&7PUNCH TO", "&7DEPOSIT")
         var HOLOGRAMS_X_SEARCH: Int = 8
         var HOLOGRAMS_Y_SEARCH: Int = 3
@@ -41,6 +42,7 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
         PRIVATECHEST_SOUND = config.getString("Settings.Sounds.PrivateChest")
 
         HOLOGRAMS_ENABLED = config.getBoolean("Settings.Holograms.Enabled")
+        HOLOGRAMS_REMOVE_AFTER_DEPOSIT = config.getBoolean("Settings.Holograms.Remove-After-Deposit")
         HOLOGRAMS_TEXT = config.getStringList("Settings.Holograms.Text").map { MessageHelper.colorize(it) }
         HOLOGRAMS_X_SEARCH = config.getInt("Settings.Holograms.Search.X")
         HOLOGRAMS_Y_SEARCH = config.getInt("Settings.Holograms.Search.Y")

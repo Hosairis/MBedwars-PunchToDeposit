@@ -8,6 +8,8 @@ Settings:
   Holograms:
     # Enable holograms
     Enabled: true
+    # Removes the hologram for the player after depositing items
+    Remove-After-Deposit: true
     # Hologram text
     Text:
       - "&7PUNCH TO"
@@ -45,4 +47,4 @@ Debug-Mode:
   Enabled: false
 
 # DO NOT TOUCH!
-Config-Version: 3
+Config-Version: 4
