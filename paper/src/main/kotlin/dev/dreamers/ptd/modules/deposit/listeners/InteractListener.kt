@@ -10,8 +10,11 @@ import dev.dreamers.ptd.api.events.PreItemDepositEvent
 import dev.dreamers.ptd.helpers.BlockHelper
 import dev.dreamers.ptd.helpers.InventoryHelper
 import dev.dreamers.ptd.helpers.MessageHelper
+import dev.dreamers.ptd.modules.deposit.DepositModule
+import dev.dreamers.ptd.modules.deposit.tasks.PlayerRemoval
 import dev.dreamers.ptd.modules.holo.HoloModule
 import dev.dreamers.ptd.services.ConfigService
+import dev.dreamers.ptd.services.LogService
 import dev.dreamers.ptd.services.MessageService
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -20,51 +23,81 @@ import org.bukkit.event.Listener
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 
-class InteractListener: Listener {
+class InteractListener : Listener {
     @EventHandler
     private fun onInteract(event: PlayerInteractEvent) {
+        // Early returns for basic validation
         if (event.isCancelled || event.action != Action.LEFT_CLICK_BLOCK) return
 
-        val player = event.player
-            .takeIf { it.hasPermission("ptd.events.interact") } ?: return
+        val player = event.player.takeIf { it.hasPermission("ptd.events.interact") } ?: return
         val arena = BedwarsAPI.getGameAPI().getArenaByPlayer(player)
-            ?.takeIf { it.status == ArenaStatus.RUNNING && player !in it.spectators } ?: return
+            ?.takeIf { it.status == ArenaStatus.RUNNING && player !in it.spectators }
+            ?: return
         val clickedBlock = event.clickedBlock
-            ?.takeIf { BlockHelper.isContainer(arena, it) && arena.isInside(it.location) } ?: return
+            ?.takeIf { BlockHelper.isContainer(arena, it) && arena.isInside(it.location) }
+            ?: return
         val chestType = arena.getChestType(clickedBlock) ?: return
-        val item = player.itemInHand
+
+        // Handle item validation
+        val heldItem = player.itemInHand
             .takeIf { it.type != Material.AIR && it.type !in ConfigService.BLACKLISTED_ITEMS }
             ?: run {
-                if (player.itemInHand.type in ConfigService.BLACKLISTED_ITEMS) { MessageHelper.sendMessage(player, MessageService.ITEM_BLACKLISTED) }
+                if (player.itemInHand.type in ConfigService.BLACKLISTED_ITEMS)
+                    MessageHelper.sendMessage(player, MessageService.ITEM_BLACKLISTED)
                 return
             }
+
         val blockInventory = InventoryHelper.getInventory(arena, player, clickedBlock) ?: return
-        val blockInvCapacity = InventoryHelper.getAvailableSpace(blockInventory, item.type)
+
+        // Handle double-click mechanic
+        if (ConfigService.DOUBLE_CLICK_ENABLED && player !in DepositModule.doubleClickPlayers) {
+            DepositModule.doubleClickPlayers[player] = PlayerRemoval.schedulePlayerRemoval(player)
+            LogService.debug("DC | ${player.name} Added")
+            return
+        }
+
+        // Calculate transfer amount
+        val availableSpace = InventoryHelper.getAvailableSpace(blockInventory, heldItem.type)
             .takeIf { it > 0 } ?: return
-        val amountToTransfer =
-            minOf(
-                if (player.isSneaking)
-                    InventoryHelper.getTotalItemAmount(player.inventory, item.type)
-                else item.amount,
-                blockInvCapacity
-            )
-        PreItemDepositEvent(player, item, amountToTransfer).apply {
-            Bukkit.getPluginManager().callEvent(this)
-            if (isCancelled) return
-        }
-        PlayerOpenArenaChestEvent(player, arena, arena.getPlayerTeam(player), blockInventory, clickedBlock, chestType, PlayerOpenArenaChestEvent.OpenPurpose.PUNCH_TO_DEPOSIT).apply {
+        val amountToTransfer = minOf(
+            if (player.isSneaking) {
+                InventoryHelper.getTotalItemAmount(player.inventory, heldItem.type)
+            } else {
+                heldItem.amount
+            },
+            availableSpace
+        )
+
+        // Fire pre-deposit event
+        PreItemDepositEvent(player, heldItem, amountToTransfer).apply {
             Bukkit.getPluginManager().callEvent(this)
             if (isCancelled) return
         }
 
+        // Fire chest open event
+        PlayerOpenArenaChestEvent(
+            player,
+            arena,
+            arena.getPlayerTeam(player),
+            blockInventory,
+            clickedBlock,
+            chestType,
+            PlayerOpenArenaChestEvent.OpenPurpose.PUNCH_TO_DEPOSIT
+        ).apply {
+            Bukkit.getPluginManager().callEvent(this)
+            if (isCancelled) return
+        }
+
+        // Handle item transfer
         if (player.isSneaking) {
-            val transferred = InventoryHelper.addAllItemsToInventory(blockInventory, player.inventory, item)
-            Helper.get().takeItems(player, item, transferred)
+            val transferred = InventoryHelper.addAllItemsToInventory(blockInventory, player.inventory, heldItem)
+            Helper.get().takeItems(player, heldItem, transferred)
         } else {
-            val transferred = InventoryHelper.addItemsToInventory(blockInventory, item, item.amount)
-            player.setItemInHand(if (transferred == item.amount) null else item.apply { amount -= transferred })
+            val transferred = InventoryHelper.addItemsToInventory(blockInventory, heldItem, heldItem.amount)
+            player.setItemInHand(if (transferred == heldItem.amount) null else heldItem.apply { amount -= transferred })
         }
 
+        // Play sound based on chest type
         val soundName = when (chestType) {
             ChestType.PRIVATE -> ConfigService.PRIVATECHEST_SOUND
             else -> ConfigService.TEAMCHEST_SOUND
@@ -72,22 +105,34 @@ class InteractListener: Listener {
         if (soundName.isNotEmpty() && !soundName.equals("None", true)) {
             Helper.get().playSound(clickedBlock.location, Helper.get().getSoundByName(soundName), 1f, 1f)
         }
+
+        // Handle holograms
         if (ConfigService.HOLOGRAMS_REMOVE_AFTER_DEPOSIT) {
-            val holo = HoloModule.holoList.firstOrNull { it.arena == arena && it.team == arena.getPlayerTeam(player) }
-            holo?.removePlayer(player, chestType)
+            HoloModule.holoList.firstOrNull {
+                it.arena == arena && it.team == arena.getPlayerTeam(player)
+            }?.removePlayer(player, if (!ConfigService.HOLOGRAMS_REMOVE_BOTH) chestType else null)
         }
 
-        MessageHelper.sendMessage(
-            player,
-            (if (chestType == ChestType.PRIVATE)
-                MessageService.PRIVATECHEST_TRANSFER
-            else
-                MessageService.TEAMCHEST_TRANSFER)
-                .replace("%amount", "$amountToTransfer")
-                .replace("%item", MessageHelper.formatString(item.type.name))
-                .replace("%container", MessageHelper.formatString(clickedBlock.type.name)),
-        )
-        PostItemDepositEvent(player, item, amountToTransfer).apply {
+        // Clean up double-click tracking
+        if (ConfigService.DOUBLE_CLICK_ENABLED) {
+            DepositModule.doubleClickPlayers[player]?.cancel()
+            DepositModule.doubleClickPlayers.remove(player)
+            LogService.debug("DC | ${player.name} Removed: Processed")
+        }
+
+        // Send transfer message
+        val message = (if (chestType == ChestType.PRIVATE)
+            MessageService.PRIVATECHEST_TRANSFER
+        else
+            MessageService.TEAMCHEST_TRANSFER)
+            .replace("%amount", "$amountToTransfer")
+            .replace("%item", MessageHelper.formatString(heldItem.type.name))
+            .replace("%container", MessageHelper.formatString(clickedBlock.type.name))
+
+        MessageHelper.sendMessage(player, message)
+
+        // Fire post-deposit event
+        PostItemDepositEvent(player, heldItem, amountToTransfer).apply {
             Bukkit.getPluginManager().callEvent(this)
         }
     }

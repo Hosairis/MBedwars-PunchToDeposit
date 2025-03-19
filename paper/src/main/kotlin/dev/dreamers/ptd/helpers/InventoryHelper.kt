@@ -110,7 +110,7 @@ class InventoryHelper {
          * @return Total number of items transferred
          */
         fun addAllItemsToInventory(toInventory: Inventory, fromInventory: Inventory, itemTemplate: ItemStack): Int {
-            if (itemTemplate.amount <= 0 || itemTemplate.maxStackSize <= 0 || fromInventory.isEmpty) return 0
+            if (itemTemplate.amount <= 0 || itemTemplate.maxStackSize <= 0 || !fromInventory.isOccupied()) return 0
 
             val fromContents = fromInventory.contents ?: return 0
 
@@ -129,6 +129,15 @@ class InventoryHelper {
         fun getInventory(arena: Arena, player: Player, block: Block): Inventory? {
             arena.getChestType(block) ?: return null
             return arena.getChestInventory(block, player)
+        }
+
+        private fun Inventory.isOccupied(): Boolean {
+            val contents = this.contents
+            for (i in contents.indices) {
+                val item = contents[i]
+                if (item != null && item.type != Material.AIR) return true
+            }
+            return false
         }
     }
 }

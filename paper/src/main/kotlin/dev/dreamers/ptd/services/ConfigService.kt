@@ -16,8 +16,12 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
         var TEAMCHEST_SOUND: String = "BLOCK_CHEST_CLOSE"
         var PRIVATECHEST_SOUND: String = "BLOCK_ENDER_CHEST_CLOSE"
 
+        var DOUBLE_CLICK_ENABLED: Boolean = false
+        var DOUBLE_CLICK_TIME: Long = 500
+
         var HOLOGRAMS_ENABLED: Boolean = true
         var HOLOGRAMS_REMOVE_AFTER_DEPOSIT: Boolean = true
+        var HOLOGRAMS_REMOVE_BOTH: Boolean = true
         var HOLOGRAMS_TEXT: List<String> = listOf("&7PUNCH TO", "&7DEPOSIT")
         var HOLOGRAMS_X_SEARCH: Int = 8
         var HOLOGRAMS_Y_SEARCH: Int = 3
@@ -41,8 +45,12 @@ class ConfigService private constructor() : StorageHelper("config.yml") {
         TEAMCHEST_SOUND = config.getString("Settings.Sounds.TeamChest")
         PRIVATECHEST_SOUND = config.getString("Settings.Sounds.PrivateChest")
 
+        DOUBLE_CLICK_ENABLED = config.getBoolean("Settings.Double-Click.Enabled")
+        DOUBLE_CLICK_TIME = config.getLong("Settings.Double-Click.Wait-Time")
+
         HOLOGRAMS_ENABLED = config.getBoolean("Settings.Holograms.Enabled")
-        HOLOGRAMS_REMOVE_AFTER_DEPOSIT = config.getBoolean("Settings.Holograms.Remove-After-Deposit")
+        HOLOGRAMS_REMOVE_AFTER_DEPOSIT = config.getBoolean("Settings.Holograms.Remove-After-Deposit.Enabled")
+        HOLOGRAMS_REMOVE_BOTH = config.getBoolean("Settings.Holograms.Remove-After-Deposit.Remove-Both")
         HOLOGRAMS_TEXT = config.getStringList("Settings.Holograms.Text").map { MessageHelper.colorize(it) }
         HOLOGRAMS_X_SEARCH = config.getInt("Settings.Holograms.Search.X")
         HOLOGRAMS_Y_SEARCH = config.getInt("Settings.Holograms.Search.Y")

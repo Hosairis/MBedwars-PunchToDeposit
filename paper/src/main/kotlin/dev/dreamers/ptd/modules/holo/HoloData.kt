@@ -14,13 +14,16 @@ data class HoloData(
     var privateHoloPlayers: MutableSet<Player> = mutableSetOf(),
     var teamHoloPlayers: MutableSet<Player> = mutableSetOf()
 ) {
-    fun removePlayer(player: Player, chestType: ChestType) {
-        if (chestType == ChestType.PRIVATE) {
+    fun removePlayer(player: Player, chestType: ChestType? = null) {
+        if (chestType == null) {
             removePlayerFromPrivateHolo(player)
-            if (privateHoloPlayers.isEmpty()) privateHolo?.hologram?.remove()
-        } else {
             removePlayerFromTeamHolo(player)
-            if (teamHoloPlayers.isEmpty()) teamHolo?.hologram?.remove()
+        } else {
+            if (chestType == ChestType.PRIVATE) {
+                removePlayerFromPrivateHolo(player)
+            } else {
+                removePlayerFromTeamHolo(player)
+            }
         }
     }
 
@@ -31,10 +34,12 @@ data class HoloData(
 
     private fun removePlayerFromPrivateHolo(player: Player) {
         privateHoloPlayers.remove(player)
+        if (privateHoloPlayers.isEmpty()) privateHolo?.hologram?.remove()
     }
 
     private fun removePlayerFromTeamHolo(player: Player) {
         teamHoloPlayers.remove(player)
+        if (teamHoloPlayers.isEmpty()) teamHolo?.hologram?.remove()
     }
 
     fun setHoloPredicate() {

@@ -5,11 +5,20 @@ Settings:
     # Sound to play when a player deposits items to a private chest
     PrivateChest: "BLOCK_CHEST_CLOSE"
 
+  Double-Click:
+    # Enables double-clicking to deposit items
+    Enabled: false
+    # Time in ticks in which the plugin will wait for the second click (20 ticks = 1 second)
+    Wait-Time: 10
+
   Holograms:
     # Enable holograms
     Enabled: true
-    # Removes the hologram for the player after depositing items
-    Remove-After-Deposit: true
+    Remove-After-Deposit:
+      # Removes the hologram for the player after depositing items
+      Enabled: true
+      # Removes both the private and the team chest hologram
+      Remove-Both: true
     # Hologram text
     Text:
       - "&7PUNCH TO"
@@ -27,13 +36,11 @@ Settings:
 
   # Items that won't be deposited when left-clicking a container
   BlackListed-Items:
-   # Weapons
    - "WOOD_SWORD"
    - "STONE_SWORD"
    - "IRON_SWORD"
    - "DIAMOND_SWORD"
    - "BOW"
-   # Utility
    - "WOOD_PICKAXE"
    - "WOOD_AXE"
    - "SHEARS"
