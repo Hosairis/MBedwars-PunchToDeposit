@@ -12,7 +12,7 @@ class PTDCommand : CommandExecutor {
     override fun onCommand(
         sender: CommandSender,
         command: Command,
-        label: String,
+        alias: String,
         args: Array<out String>,
     ): Boolean {
         if (args.isEmpty()) {
@@ -25,7 +25,7 @@ class PTDCommand : CommandExecutor {
             return true
         }
 
-        if (args[0].equals("reload", true)) {
+        if (args[0].equals("reload", true) || args[0].equals("rl", true)) {
             if (!sender.hasPermission("ptd.commands.reload")) {
                 MessageHelper.sendMessage(
                     sender,

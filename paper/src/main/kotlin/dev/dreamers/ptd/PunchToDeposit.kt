@@ -1,6 +1,7 @@
 package dev.dreamers.ptd
 
 import dev.dreamers.ptd.commands.PTDCommand
+import dev.dreamers.ptd.commands.PTDCompletions
 import dev.dreamers.ptd.helpers.MessageHelper
 import dev.dreamers.ptd.services.ConfigService
 import dev.dreamers.ptd.services.LogService
@@ -42,7 +43,9 @@ class PunchToDeposit : JavaPlugin() {
 
             addon.registerModules()
 
-            getCommand("ptd")?.setExecutor(PTDCommand())
+            val command = getCommand("ptd")
+            command?.setExecutor(PTDCommand())
+            command?.setTabCompleter(PTDCompletions())
 
             metrics = Metrics(this, 24460)
 
