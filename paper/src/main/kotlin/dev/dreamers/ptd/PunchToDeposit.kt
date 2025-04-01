@@ -11,6 +11,7 @@ import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 
 class PunchToDeposit : JavaPlugin() {
+
     companion object {
         private lateinit var plugin: PunchToDeposit
         private lateinit var addon: PunchToDepositAddon

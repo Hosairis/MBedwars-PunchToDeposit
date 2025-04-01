@@ -15,4 +15,8 @@ class PunchToDepositAddon constructor(plugin: PunchToDeposit): BedwarsAddon(plug
     fun unregisterModules() {
         UpdateModule.unregister()
     }
+
+    override fun getName(): String {
+        return "PunchToDeposit"
+    }
 }

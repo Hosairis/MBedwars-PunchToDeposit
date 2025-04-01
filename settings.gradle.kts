@@ -4,6 +4,6 @@ pluginManagement {
     }
 }
 
-rootProject.name = "Minecraft-Plugin-Template" // Set the root project name
+rootProject.name = "PunchToDeposit" // Set the root project name
 
 include("paper") // Include the "paper" subproject
