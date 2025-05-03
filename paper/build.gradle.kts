@@ -1,5 +1,4 @@
 plugins {
-    alias(libs.plugins.paperweight) // Paperweight plugin for Minecraft server development
     alias(libs.plugins.bukkit.factory) // Bukkit resource factory plugin for generating plugin.yml at build time
     alias(libs.plugins.run.paper) // The run-task plugin for running a test server and testing the plugin
 }
@@ -10,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle(libs.versions.paper) // Paper development bundle
+    compileOnly(libs.spigot)
 
     implementation(libs.bstats)
     implementation(libs.boosted.yaml)
@@ -18,7 +17,19 @@ dependencies {
 }
 
 java {
-    toolchain.languageVersion = JavaLanguageVersion.of(17) // Use Java 17 toolchain
+    toolchain.languageVersion = JavaLanguageVersion.of(17) // Use Java 17 to compile
+}
+
+// Output Java 8-compatible bytecode for Java classes
+tasks.withType<JavaCompile>().configureEach {
+    options.release.set(8)
+}
+
+// Output Java 8-compatible bytecode for Java classes (For Kotlin)
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>().configureEach {
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
+    }
 }
 
 tasks {

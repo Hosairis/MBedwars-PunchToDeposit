@@ -1,16 +1,16 @@
 [versions]
 kotlin = "2.0.21"                  # Kotlin plugin version
 shadow = "9.0.0-beta6"             # Shadow plugin version
-paperweight = "1.7.7"              # Paperweight plugin version
 bukkit-factory = "1.2.0"
 run-paper = "2.3.1"
 
-paper = "1.18.2-R0.1-SNAPSHOT"     # Paper server software version
+spigot = "1.8.8-R0.1-SNAPSHOT"     # Paper server software version
 bstats = "3.0.2"
 boosted-yaml = "1.3.7"
 mbedwars = "5.5.2"
 
 [libraries]
+spigot = { module = "org.spigotmc:spigot-api", version.ref = "spigot" }
 bstats = { module = "org.bstats:bstats-bukkit", version.ref = "bstats" }
 boosted-yaml = { module = "dev.dejvokep:boosted-yaml", version.ref = "boosted-yaml" }
 mbedwars = { module = "de.marcely.bedwars:API", version.ref = "mbedwars" }
@@ -18,6 +18,5 @@ mbedwars = { module = "de.marcely.bedwars:API", version.ref = "mbedwars" }
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }                                            # Kotlin JVM plugin
 shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }                                                 # Shadow plugin
-paperweight = { id = "io.papermc.paperweight.userdev", version.ref = "paperweight" }                            # Paperweight plugin
 bukkit-factory = { id = "xyz.jpenilla.resource-factory-bukkit-convention", version.ref = "bukkit-factory" }     # resource-factory plugin
 run-paper = { id = "xyz.jpenilla.run-paper", version.ref = "run-paper" }                                        # run-task plugin

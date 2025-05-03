@@ -7,47 +7,46 @@ import dev.dreamers.ptd.modules.update.UpdateModule
 import dev.dreamers.ptd.services.LogService
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scheduler.BukkitTask
-import java.net.URI
-import java.net.http.HttpClient
-import java.net.http.HttpRequest
-import java.net.http.HttpResponse
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
+import java.net.URL
 
 class UpdateCheck {
     companion object {
-        private val httpClient: HttpClient = HttpClient.newHttpClient()
-        private val httpRequest: HttpRequest =
-            HttpRequest.newBuilder()
-                .uri(URI.create("https://dreamers.dev/apps/versions.php?name=PunchToDeposit"))
-                .GET()
-                .build()
-
         fun checkForUpdates(): BukkitTask {
             return object : BukkitRunnable() {
                 override fun run() {
                     LogService.debug("Checking for updates")
-                    httpClient
-                        .sendAsync(httpRequest, HttpResponse.BodyHandlers.ofString())
-                        .thenApply { response ->
-                            try {
-                                Gson().fromJson(response.body(), ApiData::class.java)
+                    try {
+                        val url = URL("https://dreamers.dev/apps/versions.php?name=${PunchToDeposit.PLUGIN_NAME}")
+                        val connection = url.openConnection() as HttpURLConnection
+                        connection.requestMethod = "GET"
+
+                        val responseCode = connection.responseCode
+                        if (responseCode == HttpURLConnection.HTTP_OK) {
+                            val reader = BufferedReader(InputStreamReader(connection.inputStream))
+                            val response = reader.use { it.readText() }
+                            reader.close()
+
+                            val jsonData = try {
+                                Gson().fromJson(response, ApiData::class.java)
                             } catch (e: Exception) {
                                 null
                             }
-                        }
-                        .thenAccept { jsonData ->
-                            if (
-                                jsonData == null ||
-                                !jsonData.ok ||
-                                jsonData.data.name != PunchToDeposit.PLUGIN_NAME
-                            )
-                                return@thenAccept
+
+                            if (jsonData == null || !jsonData.ok || jsonData.data.name != PunchToDeposit.PLUGIN_NAME) {
+                                return
+                            }
 
                             LogService.debug("V: ${jsonData.data.version}")
-
                             UpdateModule.isOutDated = jsonData.data.version != PunchToDeposit.PLUGIN_VERSION
                         }
+                    } catch (e: Exception) {
+                        LogService.debug("Update check failed: ${e.message}")
+                    }
                 }
-            }.runTaskTimerAsynchronously(PunchToDeposit.getInst(), 0, 6000)
+            }.runTaskTimerAsynchronously(PunchToDeposit.getInst(), 0, 12000)
         }
     }
 }
