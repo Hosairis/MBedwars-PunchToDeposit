@@ -1,3 +1,5 @@
+import xyz.jpenilla.resourcefactory.bukkit.Permission
+
 plugins {
     alias(libs.plugins.bukkit.factory) // Bukkit resource factory plugin for generating plugin.yml at build time
     alias(libs.plugins.run.paper) // The run-task plugin for running a test server and testing the plugin
@@ -58,6 +60,11 @@ bukkitPluginYaml {
             description = "Main command for PunchToDeposit"
             usage = "/ptd <subcommand>"
             aliases.addAll(listOf("punchtodeposit"))
+        }
+    }
+    permissions {
+        create("ptd.events.deposit") {
+            default = Permission.Default.TRUE
         }
     }
 }

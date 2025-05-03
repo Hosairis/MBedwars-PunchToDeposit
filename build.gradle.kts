@@ -5,8 +5,8 @@ plugins {
 
 allprojects {
     group = "dev.dreamers"
-    version = "1.3.0"
-    description = "An example template for creating Minecraft plugins"
+    version = "1.3.1"
+    description = "High performance and Easy to use recreation of Hypixels PunchToDeposit feature."
 
     repositories {
         mavenLocal() // Local Maven repository

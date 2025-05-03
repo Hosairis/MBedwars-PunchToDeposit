@@ -29,7 +29,7 @@ class InteractListener : Listener {
         // Early returns for basic validation
         if (event.isCancelled || event.action != Action.LEFT_CLICK_BLOCK) return
 
-        val player = event.player.takeIf { it.hasPermission("ptd.events.interact") } ?: return
+        val player = event.player.takeIf { it.hasPermission("ptd.events.deposit") } ?: return
         val arena = BedwarsAPI.getGameAPI().getArenaByPlayer(player)
             ?.takeIf { it.status == ArenaStatus.RUNNING && player !in it.spectators }
             ?: return
