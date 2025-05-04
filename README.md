@@ -12,7 +12,7 @@ Lightweight, HighPerformance and Easy to use recreation of Hypixels PunchToDepos
 ### 📜 Commands
  - **/ptd reload** – Reloads configuration files. (Requires OP or proper permissions)
 ### 🔑 Permissions
- - **ptd.events.deposit** – Required for players to interact with containers using PunchToDeposit.
+ - **ptd.events.deposit** – Granted to everyone by default, Enables players to interact with containers using PunchToDeposit.
  - **ptd.events.notifyupdate** – Notifies players with this permission about plugin updates.
  - **ptd.commands.reload** – Allows access to the /ptd reload command.
 
