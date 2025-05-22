@@ -19,7 +19,7 @@ class PTDCommand : CommandExecutor {
             MessageHelper.sendMessage(
                 sender,
                 MessageHelper.colorize(
-                    "&7[&bPTD&7] &b${PunchToDeposit.PLUGIN_NAME} &7version &b${PunchToDeposit.PLUGIN_VERSION} &7by &bRafi &7(A.K.A Cipher)"
+                    "&7[&bPTD&7] &b${PunchToDeposit.PLUGIN_NAME} &7version &b${PunchToDeposit.PLUGIN_VERSION} &7by &bHosairis"
                 ),
             )
             return true

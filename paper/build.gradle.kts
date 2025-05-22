@@ -52,7 +52,7 @@ tasks {
 bukkitPluginYaml {
     name = "PunchToDeposit"
     main = "dev.dreamers.ptd.PunchToDeposit"
-    authors.add("Rafi")
+    authors.add("Hosairis")
     apiVersion = "1.13"
     depend.add("MBedwars")
     commands {
