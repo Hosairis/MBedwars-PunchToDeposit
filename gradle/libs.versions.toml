@@ -1,5 +1,5 @@
 [versions]
-kotlin = "2.0.21"                  # Kotlin plugin version
+kotlin = "2.1.21"                  # Kotlin plugin version
 shadow = "9.0.0-beta6"             # Shadow plugin version
 bukkit-factory = "1.2.0"
 run-paper = "2.3.1"
@@ -7,7 +7,7 @@ run-paper = "2.3.1"
 spigot = "1.8.8-R0.1-SNAPSHOT"     # Paper server software version
 bstats = "3.0.2"
 boosted-yaml = "1.3.7"
-mbedwars = "5.5.2"
+mbedwars = "5.5.3"
 
 [libraries]
 spigot = { module = "org.spigotmc:spigot-api", version.ref = "spigot" }
