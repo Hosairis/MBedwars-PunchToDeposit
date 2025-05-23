@@ -48,7 +48,7 @@ class PunchToDeposit : JavaPlugin() {
             command?.executor = PTDCommand()
             command?.tabCompleter = PTDCompletions()
 
-            metrics = Metrics(plugin, 25165)
+            metrics = Metrics(plugin, 25956)
 
             MessageHelper.printSplashScreen()
         } catch (e: Exception) {
