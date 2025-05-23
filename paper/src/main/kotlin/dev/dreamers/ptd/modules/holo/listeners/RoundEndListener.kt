@@ -2,12 +2,23 @@ package dev.dreamers.ptd.modules.holo.listeners
 
 import de.marcely.bedwars.api.event.arena.RoundEndEvent
 import dev.dreamers.ptd.modules.holo.HoloModule
+import dev.dreamers.ptd.services.LogService
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 
 class RoundEndListener: Listener {
     @EventHandler
     private fun onRoundEnd(event: RoundEndEvent) {
-        HoloModule.holoList.removeIf { it.arena == event.arena }
+        LogService.debug("Rem holograms for ${event.arena.name}: RoundEnd")
+        LogService.debug("B Rem: ${HoloModule.holoList.size}")
+        val iterator = HoloModule.holoList.iterator()
+        while (iterator.hasNext()) {
+            val holo = iterator.next()
+            if (holo.arena == event.arena) {
+                holo.remove()
+                iterator.remove()
+            }
+        }
+        LogService.debug("A Rem: ${HoloModule.holoList.size}")
     }
 }
