@@ -35,7 +35,7 @@ class MessageHelper {
         fun printSplashScreen() {
             LogService.info("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
             LogService.info("${PunchToDeposit.PLUGIN_NAME} v${PunchToDeposit.PLUGIN_VERSION} Loaded")
-            LogService.info("Developed by Rafi(A.K.A Cipher)")
+            LogService.info("Developed by Hosairis")
             LogService.info("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
         }
     }
