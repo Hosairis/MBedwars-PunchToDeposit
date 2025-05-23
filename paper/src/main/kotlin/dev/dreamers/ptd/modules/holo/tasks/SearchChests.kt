@@ -1,6 +1,7 @@
 package dev.dreamers.ptd.modules.holo.tasks
 
 import de.marcely.bedwars.api.BedwarsAPI
+import de.marcely.bedwars.api.arena.Arena
 import de.marcely.bedwars.api.event.player.PlayerOpenArenaChestEvent.ChestType
 import dev.dreamers.ptd.PunchToDeposit
 import dev.dreamers.ptd.modules.holo.TeamData
@@ -10,14 +11,19 @@ import org.bukkit.scheduler.BukkitRunnable
 
 class SearchChests {
     companion object {
-        fun searchChestLocations() {
+        fun searchChestLocations(vararg arenas: Arena?) {
             val teamTracks = mutableListOf<TeamData>(). apply { clear() }
-            val arenas = BedwarsAPI.getGameAPI().arenas.takeIf { it.isNotEmpty() } ?: kotlin.run {
-                LogService.debug("No arenas")
-                return
+
+            val arenaList = if (arenas.isEmpty()) {
+                BedwarsAPI.getGameAPI().arenas.takeIf { it.isNotEmpty() } ?: run {
+                    LogService.debug("No arenas")
+                    return
+                }
+            } else {
+                arenas.filterNotNull().toList()
             }
 
-            for (arena in arenas) {
+            for (arena in arenaList) {
                 val world = arena.gameWorld ?: continue
                 for (team in arena.enabledTeams) {
                     val spawnLocation = arena.getTeamSpawn(team) ?: continue
