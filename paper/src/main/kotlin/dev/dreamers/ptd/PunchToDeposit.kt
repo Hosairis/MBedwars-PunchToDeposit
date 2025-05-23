@@ -20,8 +20,8 @@ class PunchToDeposit : JavaPlugin() {
         const val PLUGIN_NAME = "PunchToDeposit"
         const val PLUGIN_VERSION = "1.3.1"
 
-        const val MIN_BW_API_VER = 200
-        const val MIN_BW_VER = "5.5.1"
+        const val MIN_BW_API_VER = 203
+        const val MIN_BW_VER = "5.5.3"
 
         fun getInst(): PunchToDeposit {
             return plugin
@@ -45,8 +45,8 @@ class PunchToDeposit : JavaPlugin() {
             addon.registerModules()
 
             val command = getCommand("ptd")
-            command?.setExecutor(PTDCommand())
-            command?.setTabCompleter(PTDCompletions())
+            command?.executor = PTDCommand()
+            command?.tabCompleter = PTDCompletions()
 
             metrics = Metrics(plugin, 25165)
 
