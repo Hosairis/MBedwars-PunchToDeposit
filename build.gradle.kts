@@ -4,7 +4,7 @@ plugins {
 }
 
 allprojects {
-    group = "dev.dreamers"
+    group = "me.hosairis"
     version = "1.3.1"
     description = "High performance and Easy to use recreation of Hypixels PunchToDeposit feature."
 
@@ -25,9 +25,9 @@ subprojects {
         }
 
         shadowJar {
-            relocate("kotlin", "dev.dreamers.kotlin")
-            relocate("org.jetbrains.annotations", "dev.dreamers.jetbrains.annotations")
-            relocate("org.intellij.lang.annotations", "dev.dreamers.intellij.lang.annotations")
+            relocate("kotlin", "me.hosairis.kotlin")
+            relocate("org.jetbrains.annotations", "me.hosairis.jetbrains.annotations")
+            relocate("org.intellij.lang.annotations", "me.hosairis.intellij.lang.annotations")
         }
     }
 }

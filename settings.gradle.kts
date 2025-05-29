@@ -6,4 +6,4 @@ pluginManagement {
 
 rootProject.name = "PunchToDeposit" // Set the root project name
 
-include("paper") // Include the "paper" subproject
+include("spigot") // Include the "paper" subproject
