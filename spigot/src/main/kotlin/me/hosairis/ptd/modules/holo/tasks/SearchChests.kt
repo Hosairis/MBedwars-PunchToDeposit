@@ -3,7 +3,7 @@ package me.hosairis.ptd.modules.holo.tasks
 import de.marcely.bedwars.api.BedwarsAPI
 import de.marcely.bedwars.api.arena.Arena
 import de.marcely.bedwars.api.event.player.PlayerOpenArenaChestEvent.ChestType
-import me.hosairis.ptd.PunchToDeposit
+import me.hosairis.ptd.MBPunchToDeposit
 import me.hosairis.ptd.modules.holo.TeamData
 import me.hosairis.ptd.services.ConfigService
 import me.hosairis.ptd.services.LogService
@@ -106,7 +106,7 @@ class SearchChests {
                     LogService.debug("Proc: $coordinatesProcessed, ${System.currentTimeMillis() - startTime}ms")
                     LogService.debug("Rem: ${teamTracks.size}")
                 }
-            }.runTaskTimer(PunchToDeposit.getInst(), 0, 1)
+            }.runTaskTimer(MBPunchToDeposit.getInst(), 0, 1)
         }
     }
 }

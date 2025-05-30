@@ -1,6 +1,6 @@
 package me.hosairis.ptd.modules.deposit.tasks
 
-import me.hosairis.ptd.PunchToDeposit
+import me.hosairis.ptd.MBPunchToDeposit
 import me.hosairis.ptd.modules.deposit.DepositModule
 import me.hosairis.ptd.services.ConfigService
 import me.hosairis.ptd.services.LogService
@@ -16,7 +16,7 @@ class PlayerRemoval {
                     DepositModule.doubleClickPlayers.remove(player)
                     LogService.debug("DC | ${player.name} Removed: Expired")
                 }
-            }.runTaskLater(PunchToDeposit.getInst(), ConfigService.DOUBLE_CLICK_TIME)
+            }.runTaskLater(MBPunchToDeposit.getInst(), ConfigService.DOUBLE_CLICK_TIME)
         }
     }
 }

@@ -6,7 +6,7 @@ import dev.dejvokep.boostedyaml.settings.dumper.DumperSettings
 import dev.dejvokep.boostedyaml.settings.general.GeneralSettings
 import dev.dejvokep.boostedyaml.settings.loader.LoaderSettings
 import dev.dejvokep.boostedyaml.settings.updater.UpdaterSettings
-import me.hosairis.ptd.PunchToDeposit
+import me.hosairis.ptd.MBPunchToDeposit
 import java.io.File
 
 abstract class StorageHelper(private val fileName: String) {
@@ -20,7 +20,7 @@ abstract class StorageHelper(private val fileName: String) {
 
         configuration =
             YamlDocument.create(
-                File(PunchToDeposit.getAddon().dataFolder, fileName),
+                File(MBPunchToDeposit.getAddon().dataFolder, fileName),
                 inputStream,
                 GeneralSettings.DEFAULT,
                 DumperSettings.DEFAULT,

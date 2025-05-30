@@ -24,8 +24,8 @@ All the configurations related to the addon can be found in **/MBedwars/add-ons/
 
 ## API
 Currently there are 2 events available:
-- PreItemDepositEvent - Triggered before depositing items to the container (Cancellable)
-- PostItemDepositEvent - Triggered after depositing items to the container (Not Cancellable)
+- **PreItemDepositEvent** - Triggered before depositing items to the container (Cancellable)
+- **PostItemDepositEvent** - Triggered after depositing items to the container (Not Cancellable)
 
 ## Support
 For support, the best place to start is [Discord](https://discord.gg/vSuKz7dfve). You can also check out our [GitHub](https://github.com/Hosairis/MBedwars-PunchToDeposit) for issues and updates.
