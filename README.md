@@ -28,5 +28,5 @@ Currently there are 2 events available:
 - PostItemDepositEvent - Triggered after depositing items to the container (Not Cancellable)
 
 ## Support
-For support, the best place to start is <a href="https://discord.gg/vSuKz7dfve" target="_blank" rel="noopener">Discord</a>. You can also check out our <a href="https://github.com/Hosairis/MBedwars-PunchToDeposit" target="_blank" rel="noopener">GitHub</a> for issues and updates.
+For support, the best place to start is [Discord](https://discord.gg/vSuKz7dfve). You can also check out our [GitHub](https://github.com/Hosairis/MBedwars-PunchToDeposit) for issues and updates.
 
