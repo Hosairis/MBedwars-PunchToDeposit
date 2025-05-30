@@ -17,7 +17,7 @@ class PunchToDeposit : JavaPlugin() {
         private lateinit var addon: PunchToDepositAddon
         private lateinit var metrics: Metrics
 
-        const val PLUGIN_NAME = "PunchToDeposit"
+        const val PLUGIN_NAME = "MB-PunchToDeposit"
         const val PLUGIN_VERSION = "1.3.1"
 
         const val MIN_BW_API_VER = 203
@@ -71,7 +71,7 @@ class PunchToDeposit : JavaPlugin() {
                 throw IllegalStateException()
             }
             true
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             LogService.severe("Unsupported MBedwars version detected, Please update to v$MIN_BW_VER")
             Bukkit.getPluginManager().disablePlugin(this)
             false

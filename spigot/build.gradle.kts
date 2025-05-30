@@ -27,7 +27,7 @@ tasks.withType<JavaCompile>().configureEach {
     options.release.set(8)
 }
 
-// Output Java 8-compatible bytecode for Java classes (For Kotlin)
+// Output Java 8-compatible bytecode (For Kotlin)
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile>().configureEach {
     compilerOptions {
         jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_1_8)
@@ -52,7 +52,7 @@ tasks {
 }
 
 bukkitPluginYaml {
-    name = "PunchToDeposit"
+    name = "MB-PunchToDeposit"
     main = "me.hosairis.ptd.PunchToDeposit"
     authors.add("Hosairis")
     apiVersion = "1.13"
