@@ -20,7 +20,7 @@ Wasting too much time sorting your inventory in chests during intense battles? T
 - **/ptd reload** - Reloads configuration and message files. (Requires OP or proper permissions)
 
 ## Configuration
-All the configurations related to the addon can be found in **/MBedwars/add-ons/PunchToDeposit/config.yml**
+All the configurations related to the addon can be found in **/MBedwars/add-ons/MB-PunchToDeposit/config.yml**
 
 ## API
 Currently there are 2 events available:
