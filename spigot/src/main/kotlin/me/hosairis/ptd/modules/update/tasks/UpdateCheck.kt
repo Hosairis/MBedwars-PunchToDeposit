@@ -1,7 +1,7 @@
 package me.hosairis.ptd.modules.update.tasks
 
 import com.google.gson.Gson
-import me.hosairis.ptd.MBPunchToDeposit
+import me.hosairis.ptd.PunchToDeposit
 import me.hosairis.ptd.modules.update.ApiData
 import me.hosairis.ptd.modules.update.UpdateModule
 import me.hosairis.ptd.services.LogService
@@ -19,7 +19,7 @@ class UpdateCheck {
                 override fun run() {
                     LogService.debug("Checking for updates")
                     try {
-                        val url = URL("https://dreamers.dev/apps/versions.php?name=${MBPunchToDeposit.PLUGIN_NAME}")
+                        val url = URL("https://dreamers.dev/apps/versions.php?name=${PunchToDeposit.PLUGIN_NAME}")
                         val connection = url.openConnection() as HttpURLConnection
                         connection.requestMethod = "GET"
 
@@ -35,18 +35,18 @@ class UpdateCheck {
                                 null
                             }
 
-                            if (jsonData == null || !jsonData.ok || jsonData.data.name != MBPunchToDeposit.PLUGIN_NAME) {
+                            if (jsonData == null || !jsonData.ok || jsonData.data.name != PunchToDeposit.PLUGIN_NAME) {
                                 return
                             }
 
                             LogService.debug("V: ${jsonData.data.version}")
-                            UpdateModule.isOutDated = jsonData.data.version != MBPunchToDeposit.PLUGIN_VERSION
+                            UpdateModule.isOutDated = jsonData.data.version != PunchToDeposit.PLUGIN_VERSION
                         }
                     } catch (e: Exception) {
                         LogService.debug("Update check failed: ${e.message}")
                     }
                 }
-            }.runTaskTimerAsynchronously(MBPunchToDeposit.getInst(), 0, 12000)
+            }.runTaskTimerAsynchronously(PunchToDeposit.getInst(), 0, 12000)
         }
     }
 }

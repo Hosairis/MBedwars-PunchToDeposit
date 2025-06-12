@@ -1,6 +1,6 @@
 package me.hosairis.ptd.modules.deposit
 
-import me.hosairis.ptd.MBPunchToDeposit
+import me.hosairis.ptd.PunchToDeposit
 import me.hosairis.ptd.modules.deposit.listeners.InteractListener
 import me.hosairis.ptd.modules.deposit.listeners.QuitListener
 import org.bukkit.Bukkit
@@ -12,8 +12,8 @@ class DepositModule {
         val doubleClickPlayers: MutableMap<Player, BukkitTask> = mutableMapOf()
 
         fun register() {
-            Bukkit.getPluginManager().registerEvents(InteractListener(), MBPunchToDeposit.getInst())
-            Bukkit.getPluginManager().registerEvents(QuitListener(), MBPunchToDeposit.getInst())
+            Bukkit.getPluginManager().registerEvents(InteractListener(), PunchToDeposit.getInst())
+            Bukkit.getPluginManager().registerEvents(QuitListener(), PunchToDeposit.getInst())
         }
     }
 }

@@ -5,7 +5,7 @@ import me.hosairis.ptd.modules.deposit.DepositModule
 import me.hosairis.ptd.modules.holo.HoloModule
 import me.hosairis.ptd.modules.update.UpdateModule
 
-class MBPunchToDepositAddon constructor(plugin: MBPunchToDeposit): BedwarsAddon(plugin) {
+class PunchToDepositAddon constructor(plugin: PunchToDeposit): BedwarsAddon(plugin) {
     fun registerModules() {
         HoloModule.register()
         DepositModule.register()
@@ -17,6 +17,6 @@ class MBPunchToDepositAddon constructor(plugin: MBPunchToDeposit): BedwarsAddon(
     }
 
     override fun getName(): String {
-        return MBPunchToDeposit.PLUGIN_NAME
+        return PunchToDeposit.PLUGIN_NAME
     }
 }

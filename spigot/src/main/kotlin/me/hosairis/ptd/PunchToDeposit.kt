@@ -10,11 +10,11 @@ import org.bstats.bukkit.Metrics
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 
-class MBPunchToDeposit : JavaPlugin() {
+class PunchToDeposit : JavaPlugin() {
 
     companion object {
-        private lateinit var plugin: MBPunchToDeposit
-        private lateinit var addon: MBPunchToDepositAddon
+        private lateinit var plugin: PunchToDeposit
+        private lateinit var addon: PunchToDepositAddon
         private lateinit var metrics: Metrics
 
         const val PLUGIN_NAME = "MB-PunchToDeposit"
@@ -23,11 +23,11 @@ class MBPunchToDeposit : JavaPlugin() {
         const val MIN_BW_API_VER = 203
         const val MIN_BW_VER = "5.5.3"
 
-        fun getInst(): MBPunchToDeposit {
+        fun getInst(): PunchToDeposit {
             return plugin
         }
 
-        fun getAddon(): MBPunchToDepositAddon {
+        fun getAddon(): PunchToDepositAddon {
             return addon
         }
     }
@@ -79,7 +79,7 @@ class MBPunchToDeposit : JavaPlugin() {
     }
 
     private fun registerAddon(): Boolean {
-        addon = MBPunchToDepositAddon(this)
+        addon = PunchToDepositAddon(this)
 
         return if (!addon.register()) {
             LogService.severe("An error occurred, Please check for duplicate addons and remove them")

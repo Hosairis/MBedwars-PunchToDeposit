@@ -1,28 +1,28 @@
 package me.hosairis.ptd.services
 
-import me.hosairis.ptd.MBPunchToDeposit
+import me.hosairis.ptd.PunchToDeposit
 
 class LogService {
     companion object {
         @JvmStatic
         fun info(input: String) {
-            MBPunchToDeposit.getInst().logger.info(input)
+            PunchToDeposit.getInst().logger.info(input)
         }
 
         @JvmStatic
         fun warning(input: String) {
-            MBPunchToDeposit.getInst().logger.warning(input)
+            PunchToDeposit.getInst().logger.warning(input)
         }
 
         @JvmStatic
         fun severe(input: String) {
-            MBPunchToDeposit.getInst().logger.severe(input)
+            PunchToDeposit.getInst().logger.severe(input)
         }
 
         @JvmStatic
         fun debug(input: String) {
             if (!ConfigService.DEBUG) return
-            MBPunchToDeposit.getInst().logger.info("[DEBUG] $input")
+            PunchToDeposit.getInst().logger.info("[DEBUG] $input")
         }
     }
 }

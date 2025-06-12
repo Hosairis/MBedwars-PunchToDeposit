@@ -1,6 +1,6 @@
 package me.hosairis.ptd.commands
 
-import me.hosairis.ptd.MBPunchToDeposit
+import me.hosairis.ptd.PunchToDeposit
 import me.hosairis.ptd.helpers.MessageHelper
 import me.hosairis.ptd.services.ConfigService
 import me.hosairis.ptd.services.MessageService
@@ -18,7 +18,7 @@ class PTDCommand : CommandExecutor {
         if (args.isEmpty()) {
             MessageHelper.sendMessage(
                 sender,
-                "&7[&bPTD&7] &b${MBPunchToDeposit.PLUGIN_NAME} &7version &b${MBPunchToDeposit.PLUGIN_VERSION} &7by &bHosairis"
+                "&7[&bPTD&7] &b${PunchToDeposit.PLUGIN_NAME} &7version &b${PunchToDeposit.PLUGIN_VERSION} &7by &bHosairis"
             )
             return true
         }

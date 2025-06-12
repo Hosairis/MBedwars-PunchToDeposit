@@ -1,6 +1,6 @@
 package me.hosairis.ptd.helpers
 
-import me.hosairis.ptd.MBPunchToDeposit
+import me.hosairis.ptd.PunchToDeposit
 import me.hosairis.ptd.services.LogService
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.command.CommandSender
@@ -34,7 +34,7 @@ class MessageHelper {
 
         fun printSplashScreen() {
             LogService.info("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
-            LogService.info("${MBPunchToDeposit.PLUGIN_NAME} v${MBPunchToDeposit.PLUGIN_VERSION} Loaded")
+            LogService.info("${PunchToDeposit.PLUGIN_NAME} v${PunchToDeposit.PLUGIN_VERSION} Loaded")
             LogService.info("Developed by Hosairis")
             LogService.info("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=")
         }
