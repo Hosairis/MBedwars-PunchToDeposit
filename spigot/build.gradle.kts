@@ -53,7 +53,7 @@ tasks {
 
 bukkitPluginYaml {
     name = "MB-PunchToDeposit"
-    main = "me.hosairis.ptd.MBPunchToDeposit"
+    main = "me.hosairis.ptd.PunchToDeposit"
     authors.add("Hosairis")
     apiVersion = "1.13"
     depend.add("MBedwars")

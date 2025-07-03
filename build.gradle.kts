@@ -5,7 +5,7 @@ plugins {
 
 allprojects {
     group = "me.hosairis"
-    version = "1.4.0"
+    version = "1.4.1"
     description = "High performance and Easy to use recreation of Hypixels PunchToDeposit feature."
 
     repositories {
